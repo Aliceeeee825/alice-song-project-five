@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/alice-song-project-five/static/css/main.3c282221.chunk.css",
+    "main.js": "/alice-song-project-five/static/js/main.a79787aa.chunk.js",
+    "main.js.map": "/alice-song-project-five/static/js/main.a79787aa.chunk.js.map",
+    "runtime-main.js": "/alice-song-project-five/static/js/runtime-main.f6fd186f.js",
+    "runtime-main.js.map": "/alice-song-project-five/static/js/runtime-main.f6fd186f.js.map",
+    "static/js/2.e2c018ba.chunk.js": "/alice-song-project-five/static/js/2.e2c018ba.chunk.js",
+    "static/js/2.e2c018ba.chunk.js.map": "/alice-song-project-five/static/js/2.e2c018ba.chunk.js.map",
+    "index.html": "/alice-song-project-five/index.html",
+    "precache-manifest.d20b0d030da040b67edc0a346bc3c1fd.js": "/alice-song-project-five/precache-manifest.d20b0d030da040b67edc0a346bc3c1fd.js",
+    "service-worker.js": "/alice-song-project-five/service-worker.js",
+    "static/css/main.3c282221.chunk.css.map": "/alice-song-project-five/static/css/main.3c282221.chunk.css.map",
+    "static/js/2.e2c018ba.chunk.js.LICENSE.txt": "/alice-song-project-five/static/js/2.e2c018ba.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f6fd186f.js",
+    "static/js/2.e2c018ba.chunk.js",
+    "static/css/main.3c282221.chunk.css",
+    "static/js/main.a79787aa.chunk.js"
+  ]
+}
