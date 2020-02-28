@@ -1,54 +1,133 @@
 import React, { Component } from 'react';
 
 class Main extends Component{
+    constructor(){
+        super();
+
+        this.state = {
+            listOfLogs: [],
+            day:  '',
+            time: '',
+            note: '',
+        }
+    }
+
+    // after clicking the plus button, the log form shows up
+    newEventHandler = () => {
+        let logDetail = document.querySelector('.logDetail');
+        logDetail.classList.toggle('hide')
+}
+    //after clicking add log, state update
+    addLogHandler = (e) => {
+        e.preventDefault()
+        let log = {
+            "day": this.state.day,
+            "time": this.state.time,
+            "note": this.state.note
+        }
+        this.state.listOfLogs.push(log)
+    
+        //clear the note text input field
+        document.querySelector('.note').value = ''
+    }
+
+    // when input change, record them
+    handleChange = (e) =>{
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+
     render(){
+        //generate cells
         const appendCell = ((i, content)=>{
             cellGenerator.push(
                 <div className = {`cellNo${i} cell`} key={i}>{content}</div>
             )
         })
 
+        //give the calendar column and row names
         const cellGenerator = [];
         const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        const timeslots = {8:'8:00', 9:'9:00', 10:'10:00', 11:'11:00', 12:'12:00', 13:'13:00', 14:'14:00', 15:'15:00', 16:'16:00', 17:'17:00', 18:'18:00', 19:'19:00', 20:'20:00'}
-        // const timeslots = [ '8:00',  '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00' ]
         let counter = 8;
         for (let i = 0; i <= 111; i++) {
-            // 8*13 = 104
-            // console.log(i%7===1)
             if (1<=i && i<=7){
+                // add days of week in
                 appendCell(i, weekdays[(i-1)])
-                // console.log(i)
             }
             else{
+                //add time period in
                 if ( (i % 8 === 0 && i > 8)|| i === 8) {
-                    appendCell(i, timeslots[counter])
-                    counter ++
+                    appendCell(i, `${counter}:00`)
+                    counter ++;
                 }
                 else{
-                    appendCell(i, 'hi')
+                    appendCell(i, `${i}`)
                 }
             }
-            // else if (i % 7 === 1){
-            //     // 8 15
-            //     console.log(i)
-            //     for (let index = 8; i<=20; i++){
-            //         // appendCell(i, timeslots[index])
-            //         // appendCell(i, time)
-            //         console.log(index)
-            //     }
-            // }
-            // else{
-            //     appendCell(i, '')
-            // }
         }
 
+        // add options for form 
+        let formDateToApend = [];
+        const formDate = (weekdays) => {
+            for (let i = 0; i <= 6; i++){
+                formDateToApend.push(<option key={`${weekdays[i]}`} value={`${weekdays[i]}`} >{weekdays[i]}</option>)
+            }
+        }
+        formDate(weekdays)
+
+        let formTimeToAppend = [];
+        const formTime = () => {
+            for (let i = 8; i <= 20; i++){
+                formTimeToAppend.push(<option key={`${i}`} value={`${i}`} >{i}:00 - {i+1}:00</option>)
+            }
+        }
+        formTime()
+        
         return(
-            <div className = "calendar">
-                {cellGenerator.map((cell) => {
-                    return cell
-                })
-                }
+            <div className="mainContent">
+                <div className = "calendar">
+                    {cellGenerator.map((cell) => {
+                        return cell
+                    })
+                    }
+                </div>
+
+                <div className="newLog">
+                    <button className="newLogPlus" onClick={this.newEventHandler}>+</button>
+                    <label className="visuallyhidden">add a log</label>
+                </div>
+
+                <div className="logDetail hide">
+                    <h2>Add log</h2>
+                    <form action="GET" onSubmit={this.addLogHandler}>
+                        <label htmlFor="date">Date</label>
+                        <select onChange={this.handleChange} id="day" name="day" value={this.state.day}>
+                            {/* <option value="">Select a day of the week</option> */}
+                            {
+                                formDateToApend.map((day) => {
+                                    return day
+                                })
+                            }
+                        </select>
+
+                        <label htmlFor="time">Select a timeslot</label>
+                        <select onChange={this.handleChange} id="time" name="time" value={this.state.time}>
+                            {/* <option value="">Select a day of the week</option> */}
+                            {
+                                formTimeToAppend.map((time) => {
+                                    return time
+                                })
+                            }
+                        </select>
+
+                        <label htmlFor="note">Note</label>
+                        <input type="text" name="note" className="note" value={this.state.note} onChange={this.handleChange}/>
+
+                        <button className="addLog" htmlFor="submit">Add</button>
+                    </form>
+                </div>
             </div>
         )
     }
