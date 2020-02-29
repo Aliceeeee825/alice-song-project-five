@@ -7,7 +7,8 @@ class Main extends Component{
         this.state = {
             listOfLogs: [],
             day:  '',
-            time: '',
+            startTime: '',
+            endTime: '',
             note: '',
         }
     }
@@ -19,16 +20,29 @@ class Main extends Component{
 }
     //after clicking add log, state update
     addLogHandler = (e) => {
+        const startTime = this.state.startTime
+        const endTime = this.state.endTime
+
         e.preventDefault()
         let log = {
             "day": this.state.day,
-            "time": this.state.time,
+            "startTime": startTime,
+            "endTime": endTime,
             "note": this.state.note
         }
         this.state.listOfLogs.push(log)
+
+        //color the corresponding timeslot on the timetable
+        // console.log('.cellNo' + startTime + '-' + this.state.day)
+        for (let duration = endTime - startTime - 1; duration >= 0; duration -- ){
+            let hour = Number(startTime) + duration
+            console.log(hour)
+            document.querySelector('.cellNo' + hour + '-' + this.state.day).style.backgroundColor = "#044b7f";
+        }
     
         //clear the note text input field
         document.querySelector('.note').value = ''
+        console.log('list of logs',this.state.listOfLogs)
     }
 
     // when input change, record them
@@ -63,7 +77,10 @@ class Main extends Component{
                     counter ++;
                 }
                 else{
-                    appendCell(i, `${i}`)
+                    // give coordinates to each cell 
+                    let x = Math.floor(i/8);
+                    let y = i % 8;
+                    appendCell(x + "-" + y, ``)
                 }
             }
         }
@@ -72,18 +89,29 @@ class Main extends Component{
         let formDateToApend = [];
         const formDate = (weekdays) => {
             for (let i = 0; i <= 6; i++){
-                formDateToApend.push(<option key={`${weekdays[i]}`} value={`${weekdays[i]}`} >{weekdays[i]}</option>)
+                formDateToApend.push(<option key={`${weekdays[i]}`} value={`${i + 1}`} >{weekdays[i]}</option>)
             }
         }
         formDate(weekdays)
 
-        let formTimeToAppend = [];
-        const formTime = () => {
-            for (let i = 8; i <= 20; i++){
-                formTimeToAppend.push(<option key={`${i}`} value={`${i}`} >{i}:00 - {i+1}:00</option>)
+        let startTimeToAppend = [];
+        const formStartTime = () => {
+            for (let i = 1; i <= 13; i++){
+                startTimeToAppend.push(<option key={`${i+7}`} value={`${i}`} >{i+7}</option>)
             }
         }
-        formTime()
+        formStartTime()
+
+        let endTimeToAppend = [];
+        const formEndTime = () => {
+            for (let i = 1; i <= 13; i++) {
+                if ((i+1) > this.state.startTime){
+                    endTimeToAppend.push(<option key={`${i + 8}`} value={`${i+1}`} >{i + 8}</option>)
+                }
+            }
+        }
+        formEndTime()
+        
         
         return(
             <div className="mainContent">
@@ -104,7 +132,7 @@ class Main extends Component{
                     <form action="GET" onSubmit={this.addLogHandler}>
                         <label htmlFor="date">Date</label>
                         <select onChange={this.handleChange} id="day" name="day" value={this.state.day}>
-                            {/* <option value="">Select a day of the week</option> */}
+                            <option value="">A day of the week</option>
                             {
                                 formDateToApend.map((day) => {
                                     return day
@@ -112,11 +140,21 @@ class Main extends Component{
                             }
                         </select>
 
-                        <label htmlFor="time">Select a timeslot</label>
-                        <select onChange={this.handleChange} id="time" name="time" value={this.state.time}>
-                            {/* <option value="">Select a day of the week</option> */}
+                        <label htmlFor="statTime">Start time</label>
+                        <select onChange={this.handleChange} id="startTime" name="startTime" value={this.state.startTime}>
+                            <option value="">Start time</option>
                             {
-                                formTimeToAppend.map((time) => {
+                                startTimeToAppend.map((time) => {
+                                    return time
+                                })
+                            }
+                        </select>
+
+                        <label htmlFor="endTime">End time</label>
+                        <select onChange={this.handleChange} id="endTime" name="endTime" value={this.state.endTime}>
+                            <option value="">End time</option>
+                            {
+                                endTimeToAppend.map((time) => {
                                     return time
                                 })
                             }
@@ -125,7 +163,7 @@ class Main extends Component{
                         <label htmlFor="note">Note</label>
                         <input type="text" name="note" className="note" value={this.state.note} onChange={this.handleChange}/>
 
-                        <button className="addLog" htmlFor="submit">Add</button>
+                        <button className="addLog" htmlFor="submit" onClick={this.addLogHandler}>Add</button>
                     </form>
                 </div>
             </div>

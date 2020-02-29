@@ -67,7 +67,8 @@ header{
 }
 
 .cell{
-  border: 1px solid red;
+  border-left: 1px solid red;
+  border-right: 1px solid red;
   padding: 2%;
 }
 
@@ -92,6 +93,6 @@ label{
 }
 
 /* classes for java script */
-.hide{
+/* .hide{
   display: none;
-}
+} */
