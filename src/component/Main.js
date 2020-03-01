@@ -37,7 +37,8 @@ class Main extends Component{
         for (let duration = endTime - startTime - 1; duration >= 0; duration -- ){
             let hour = Number(startTime) + duration
             console.log(hour)
-            document.querySelector('.cellNo' + hour + '-' + this.state.day).style.backgroundColor = "#044b7f";
+            document.querySelector('.cellNo' + hour + '-' + this.state.day).style.backgroundColor = "#f7ce3e";
+            document.querySelector('.cellNo' + hour + '-' + this.state.day).innerHTML = this.state.note;
         }
     
         //clear the note text input field
@@ -129,9 +130,10 @@ class Main extends Component{
 
                 <div className="logDetail hide">
                     <h2>Add log</h2>
-                    <form action="GET" onSubmit={this.addLogHandler}>
+                    {/* form start here */}
+                    <form action="GET" onSubmit={this.addLogHandler} className="addLogForm">
                         <label htmlFor="date">Date</label>
-                        <select onChange={this.handleChange} id="day" name="day" value={this.state.day}>
+                        <select onChange={this.handleChange} id="day" name="day" value={this.state.day} required>
                             <option value="">A day of the week</option>
                             {
                                 formDateToApend.map((day) => {
@@ -141,7 +143,7 @@ class Main extends Component{
                         </select>
 
                         <label htmlFor="statTime">Start time</label>
-                        <select onChange={this.handleChange} id="startTime" name="startTime" value={this.state.startTime}>
+                        <select onChange={this.handleChange} id="startTime" name="startTime" value={this.state.startTime} required>
                             <option value="">Start time</option>
                             {
                                 startTimeToAppend.map((time) => {
@@ -151,7 +153,7 @@ class Main extends Component{
                         </select>
 
                         <label htmlFor="endTime">End time</label>
-                        <select onChange={this.handleChange} id="endTime" name="endTime" value={this.state.endTime}>
+                        <select onChange={this.handleChange} id="endTime" name="endTime" value={this.state.endTime} required>
                             <option value="">End time</option>
                             {
                                 endTimeToAppend.map((time) => {
@@ -161,9 +163,9 @@ class Main extends Component{
                         </select>
 
                         <label htmlFor="note">Note</label>
-                        <input type="text" name="note" className="note" value={this.state.note} onChange={this.handleChange}/>
+                        <input type="text" name="note" className="note" value={this.state.note} onChange={this.handleChange} />
 
-                        <button className="addLog" htmlFor="submit" onClick={this.addLogHandler}>Add</button>
+                        <button className="addLog" htmlFor="submit" onClick={this.addLogHandler} max-width="30">Add</button>
                     </form>
                 </div>
             </div>

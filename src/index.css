@@ -17,10 +17,12 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
   -moz-osx-font-smoothing: grayscale;
 } */
 
-@import url('https://fonts.googleapis.com/css?family=Trade+Winds&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Alegreya|Alegreya+Sans:700i&display=swap');
 
 body{
-  font-family: 'Trade Winds';
+  font-family: 'Alegreya';
+  background: #f4f4f4;
+  font-size: 62.5%;
 }
 
 code {
@@ -32,20 +34,19 @@ code {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 header{
-  background-color: #282c34;
-  min-height: 20vh;
+  background-color: #1a2930;
+  height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 2.5rem;
   color: white;
+}
+
+h1{
+  font-family: 'Alegreya Sans';
 }
 
 .wrapper{
@@ -58,6 +59,7 @@ header{
   height: 75vh;
   width: 90%;
   margin: 2% auto 0;
+  font-size: 1rem;
 }
 
 .calendar{
@@ -67,20 +69,32 @@ header{
 }
 
 .cell{
-  border-left: 1px solid red;
-  border-right: 1px solid red;
+  border: 1px solid #0a1612;
+  /* border-right: 1px solid #0a1612; */
   padding: 2%;
 }
 
 .newLogPlus{
-  background-color: transparent;
+  background-color: #f7ce3e;
+  color: white;
   border-radius: 50%;
-  box-shadow: none;
-  border: 1px solid black;
+  box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+  border: 1px solid transparent;
   padding: 1% 1.5%;
   position: absolute;
   bottom: 10%;
-  right: 5%
+  right: 5%;
+  transform: none;
+  transition: transform 0.5s;
+}
+
+.newLogPlus:hover{
+  transform: scale(1.3);
+}
+
+.newLogPlus:active{
+  bottom: 9.5%;
+  right: 4.8%
 }
 
 button:hover{
@@ -88,11 +102,20 @@ button:hover{
 }
 
 /* form styling */
-label{
+.addLogForm{
+  margin-right: 5%;
+}
+.addLogForm label{
   margin: 1%;
 }
 
+.addLog{
+  background-color: #f4f4f4;
+  box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+}
+
 /* classes for java script */
-/* .hide{
+.hide{
   display: none;
-} */
+}
+
