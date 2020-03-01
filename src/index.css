@@ -25,15 +25,131 @@ body{
   font-size: 62.5%;
 }
 
-code {
+img{
+  min-width: 100%;
+  display: inline-block;
+}
+
+h2{
+  font-size: 1.5rem;
+}
+/* code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
+} */
 
 .App {
   text-align: center;
 }
 
+/* home style */
+.home{
+  background-color: #1a2930;
+  color: white;
+  height: 100vh;
+  font-size: 1.2rem;
+  position: relative;
+  /* float: left; */
+}
+
+.homeHead{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-top: 4%;
+  
+}
+
+.home img{
+  width: 30%;
+}
+
+.home nav{
+  width: 20%;
+}
+
+.home ul{
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.home li{
+  list-style-type: none;
+  margin-right: 8%;
+}
+
+.home a{
+  color: white;
+  text-decoration: none;
+}
+
+
+.home h1{
+  font-size: 4rem;
+  margin-top: 10%;
+  margin-bottom: 0;
+  
+}
+
+
+/* login page */
+.loginPage, .loginContent, .loginForm{
+  display: flex;
+}
+
+.loginPage, .loginContent{
+justify-content: center;
+  align-items: center;
+}
+
+.loginPage{
+  background:url(./assets/loginBg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  font-size: 1rem;
+  flex-direction: column;
+}
+
+.loginLogo{
+  width:40%;
+}
+
+.loginContent{
+  background: #8c9fbb;
+  /* border: 5px solid white; */
+  box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+  padding: 5% 2%;
+  width: 40%;
+  border-radius: 5px;
+}
+
+.loginForm{
+  flex-direction: column;
+}
+
+.loginForm input{
+  background:white;
+}
+
+.loginForm h2{
+  margin: 1%;
+}
+
+.loginForm a{
+  color: black;
+  text-decoration: none;
+}
+
+.loginForm button{
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+
+/* main page style */
 header{
   background-color: #1a2930;
   height: 20vh;
