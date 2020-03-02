@@ -24,8 +24,6 @@ class Main extends Component{
 
             const stateToBeSet = []
 
-            console.log(dataFromDb)
-
             for (let key in dataFromDb) {
                 const logDetail = {
                     key: key,
@@ -38,6 +36,7 @@ class Main extends Component{
                 listOfLogs: stateToBeSet
             })
         })
+
     }
 
     // after clicking the plus button, the log form shows up
@@ -47,14 +46,11 @@ class Main extends Component{
 }
     //after clicking add log, state update
     addLogHandler = (e) => {
-        const startTime = this.state.startTime
-        const endTime = this.state.endTime
-
         e.preventDefault()
         let log = {
             "day": this.state.day,
-            "startTime": startTime,
-            "endTime": endTime,
+            "startTime": this.state.startTime,
+            "endTime": this.state.endTime,
             "note": this.state.note
         }
         // this.setState({
@@ -65,12 +61,7 @@ class Main extends Component{
 
         //color the corresponding timeslot on the timetable
         // console.log('.cellNo' + startTime + '-' + this.state.day)
-        for (let duration = endTime - startTime - 1; duration >= 0; duration -- ){
-            let hour = Number(startTime) + duration
-            console.log(hour)
-            document.querySelector('.cellNo' + hour + '-' + this.state.day).style.backgroundColor = "#f7ce3e";
-            document.querySelector('.cellNo' + hour + '-' + this.state.day).innerHTML = this.state.note;
-        }
+        
 
         //push the data to the firebase
         const dbRef = firebase.database().ref();
@@ -86,15 +77,43 @@ class Main extends Component{
         console.log('list of logs',this.state.listOfLogs)
     }
 
+    
     // when input change, record them
     handleChange = (e) =>{
         this.setState({
             [e.target.name]: e.target.value
         })
     }
+    
+    color = (listOfItem) => {
+        if (listOfItem.length > 0){
+            listOfItem.forEach((item) => {
+                const startTime = item.log.startTime;
+                const endTime = item.log.endTime;
+                const day = item.log.day
+                console.log('startime', startTime)
+                console.log('endTime', endTime)
+                for (let duration = endTime - startTime - 1; duration >= 0; duration--) {
+                    let hour = Number(startTime) + duration
+                    console.log(hour)
+                    document.querySelector('.cellNo' + hour + '-' + day).style.backgroundColor = "#f7ce3e";
+                    document.querySelector('.cellNo' + hour + '-' + day).innerHTML = item.log.note;
+                }
+            })
+        }
+    }
 
-
+    
     render(){
+        this.color(this.state.listOfLogs)
+    //     if (this.state.listOfLogs.length > 0){
+    //         console.log("above color", this.state.listOfLogs)
+    //         console.log(this.state.listOfLogs[0].log.startTime)
+    //         this.state.listOfLogs.forEach((log) => {
+    //             this.color(log)
+    //     }   
+    // }
+
         //generate cells
         const appendCell = ((i, content)=>{
             cellGenerator.push(
@@ -121,7 +140,7 @@ class Main extends Component{
                     // give coordinates to each cell 
                     let x = Math.floor(i/8);
                     let y = i % 8;
-                    appendCell(x + "-" + y, `${x} - ${y}`)
+                    appendCell(x + "-" + y, ``)
                 }
             }
         }
