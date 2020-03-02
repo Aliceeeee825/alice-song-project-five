@@ -17,7 +17,7 @@ class Home extends Component{
         return(
             <div className="home">
                 <div className="homeHead">
-                    <div className="logo">
+                    <div className="homeLogo">
                         <img src={logo} alt="A rabbit inspired by Alice in wonderland. Cr:Max Jiang"/>
                     </div>
     

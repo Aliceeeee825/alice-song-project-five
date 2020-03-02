@@ -1,16 +1,43 @@
 import React, { Component } from 'react';
+import firebase from '../firebase';
+// import * as firebase from 'firebase/app';
 
 class Main extends Component{
     constructor(){
         super();
 
         this.state = {
+            email: 'alice',
             listOfLogs: [],
             day:  '',
             startTime: '',
             endTime: '',
             note: '',
         }
+    }
+
+    componentDidMount(){
+        const dbRef = firebase.database().ref();
+
+        dbRef.on('value', (response) => {
+            const dataFromDb = response.val();
+
+            const stateToBeSet = []
+
+            console.log(dataFromDb)
+
+            for (let key in dataFromDb) {
+                const logDetail = {
+                    key: key,
+                    log: dataFromDb[key]
+                }
+                stateToBeSet.push(logDetail)
+            }
+
+            this.setState({
+                listOfLogs: stateToBeSet
+            })
+        })
     }
 
     // after clicking the plus button, the log form shows up
@@ -30,7 +57,11 @@ class Main extends Component{
             "endTime": endTime,
             "note": this.state.note
         }
-        this.state.listOfLogs.push(log)
+        // this.setState({
+        //     listOfLogs[email]: log
+        // })
+            
+        // console.log(this.state.listOfLogs)
 
         //color the corresponding timeslot on the timetable
         // console.log('.cellNo' + startTime + '-' + this.state.day)
@@ -40,6 +71,15 @@ class Main extends Component{
             document.querySelector('.cellNo' + hour + '-' + this.state.day).style.backgroundColor = "#f7ce3e";
             document.querySelector('.cellNo' + hour + '-' + this.state.day).innerHTML = this.state.note;
         }
+
+        //push the data to the firebase
+        const dbRef = firebase.database().ref();
+        dbRef.push(log);
+        // dbRef.push()
+        // this.setState({
+        //     listOfLogs: [],
+        // })
+        
     
         //clear the note text input field
         document.querySelector('.note').value = ''
@@ -81,7 +121,7 @@ class Main extends Component{
                     // give coordinates to each cell 
                     let x = Math.floor(i/8);
                     let y = i % 8;
-                    appendCell(x + "-" + y, ``)
+                    appendCell(x + "-" + y, `${x} - ${y}`)
                 }
             }
         }

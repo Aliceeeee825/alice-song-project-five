@@ -5,7 +5,9 @@ import './index.css'
 
 import Home from './component/Home';
 import Login from './component/Login';
-import Register from './component/Register'
+import Register from './component/Register';
+import Header from './component/Header';
+import Main from './component/Main'
 
 class App extends Component {
   render(){
@@ -19,6 +21,11 @@ class App extends Component {
 
             <Route path='/register'>
               <Register />
+            </Route>
+
+            <Route path = '/main'>
+              <Header />
+              <Main />
             </Route>
 
             <Route path='/'>

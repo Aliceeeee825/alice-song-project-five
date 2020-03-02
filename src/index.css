@@ -26,7 +26,7 @@ body{
 }
 
 img{
-  min-width: 100%;
+  max-width: 100%;
   display: inline-block;
 }
 
@@ -60,8 +60,9 @@ h2{
   
 }
 
-.home img{
-  width: 30%;
+.homeLogo{
+  width: 10%;
+  margin-left: 5%;
 }
 
 .home nav{
@@ -89,22 +90,22 @@ h2{
   font-size: 4rem;
   margin-top: 10%;
   margin-bottom: 0;
-  
 }
 
 
 /* login page */
-.loginPage, .loginContent, .loginForm{
+.loginPage, .loginContent, .loginForm,
+.registerPage, .registerContent, .registerForm{
   display: flex;
 }
 
-.loginPage, .loginContent{
+.loginPage, .loginContent,
+.registerPage, .registerContent{
 justify-content: center;
   align-items: center;
 }
 
-.loginPage{
-  background:url(./assets/loginBg.jpg);
+.loginPage, .registerPage{
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -112,12 +113,18 @@ justify-content: center;
   flex-direction: column;
 }
 
+.loginPage{
+  background:url(./assets/loginBg.jpg);
+}
+
 .loginLogo{
   width:40%;
 }
 
-.loginContent{
-  background: #8c9fbb;
+.loginContent,
+.registerContent{
+  background: #1a2930;
+  color: white;
   /* border: 5px solid white; */
   box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
   padding: 5% 2%;
@@ -125,29 +132,85 @@ justify-content: center;
   border-radius: 5px;
 }
 
-.loginForm{
+.loginForm,
+.registerForm{
   flex-direction: column;
+  text-align: left;
 }
 
-.loginForm input{
+.loginForm input,
+.registerForm input{
   background:white;
+  margin: 2% 0;
 }
 
-.loginForm h2{
-  margin: 1%;
+.loginForm input:active,
+.registerForm input:active{
+  border: 5px solid #f7ce3e;
 }
 
-.loginForm a{
-  color: black;
+.loginForm h2,
+.registerForm h2{
+  margin: 5%;
+  text-align: center;
+}
+
+.loginForm a,
+.registerForm a{
+  color: white;
   text-decoration: none;
+  padding: 2% 0;
+  transition: all 0.5s;
 }
 
-.loginForm button{
+.loginForm a:hover,
+.loginForm a:focus,
+.registerForm a:hover,
+.registerForm a:focus{
+  color: #f7ce3e;
+  text-decoration: underline;
+}
+
+.loginForm button,
+.registerForm button{
   background-color: white;
   border: none;
   border-radius: 5px;
+  padding: 1%;
+  color: black;
+  transition: color 0.5s, background-color 0.5s;
 }
 
+.loginForm button:hover,
+.loginForm button:focus,
+.registerForm button:hover,
+.registerForm button:focus{
+  background-color: #f7ce3e;
+  color: white;
+  transition: top 0.5s, left 0.5s;
+}
+
+.loginForm button:active,
+.registerForm button:active{
+  position: relative;
+  top: 4px;
+  left: 2px;
+}
+
+/* reigster page */
+.registerPage{
+  font-size: 1rem;
+  background: url('assets/registerBackground.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  font-size: 1rem;
+  color: white
+}
+
+.registerPage h2{
+  margin: 0;
+}
 
 /* main page style */
 header{
