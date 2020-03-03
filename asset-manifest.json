@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/alice-song-project-five/static/css/main.d83b6f54.chunk.css",
-    "main.js": "/alice-song-project-five/static/js/main.8ca02456.chunk.js",
-    "main.js.map": "/alice-song-project-five/static/js/main.8ca02456.chunk.js.map",
+    "main.js": "/alice-song-project-five/static/js/main.4bf13e41.chunk.js",
+    "main.js.map": "/alice-song-project-five/static/js/main.4bf13e41.chunk.js.map",
     "runtime-main.js": "/alice-song-project-five/static/js/runtime-main.f6fd186f.js",
     "runtime-main.js.map": "/alice-song-project-five/static/js/runtime-main.f6fd186f.js.map",
-    "static/js/2.dc6a0e67.chunk.js": "/alice-song-project-five/static/js/2.dc6a0e67.chunk.js",
-    "static/js/2.dc6a0e67.chunk.js.map": "/alice-song-project-five/static/js/2.dc6a0e67.chunk.js.map",
+    "static/js/2.aec2a5f1.chunk.js": "/alice-song-project-five/static/js/2.aec2a5f1.chunk.js",
+    "static/js/2.aec2a5f1.chunk.js.map": "/alice-song-project-five/static/js/2.aec2a5f1.chunk.js.map",
     "index.html": "/alice-song-project-five/index.html",
-    "precache-manifest.42298d876440cd2b3d034138354e5e72.js": "/alice-song-project-five/precache-manifest.42298d876440cd2b3d034138354e5e72.js",
+    "precache-manifest.657913fcaa9fa1e6d9025c34a4308930.js": "/alice-song-project-five/precache-manifest.657913fcaa9fa1e6d9025c34a4308930.js",
     "service-worker.js": "/alice-song-project-five/service-worker.js",
     "static/css/main.d83b6f54.chunk.css.map": "/alice-song-project-five/static/css/main.d83b6f54.chunk.css.map",
-    "static/js/2.dc6a0e67.chunk.js.LICENSE.txt": "/alice-song-project-five/static/js/2.dc6a0e67.chunk.js.LICENSE.txt",
+    "static/js/2.aec2a5f1.chunk.js.LICENSE.txt": "/alice-song-project-five/static/js/2.aec2a5f1.chunk.js.LICENSE.txt",
     "static/media/calendarLogo.svg": "/alice-song-project-five/static/media/calendarLogo.4db167f8.svg",
     "static/media/homeLogo.svg": "/alice-song-project-five/static/media/homeLogo.d1720d81.svg",
     "static/media/registerLogo.svg": "/alice-song-project-five/static/media/registerLogo.e013f98b.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.f6fd186f.js",
-    "static/js/2.dc6a0e67.chunk.js",
+    "static/js/2.aec2a5f1.chunk.js",
     "static/css/main.d83b6f54.chunk.css",
-    "static/js/main.8ca02456.chunk.js"
+    "static/js/main.4bf13e41.chunk.js"
   ]
 }
