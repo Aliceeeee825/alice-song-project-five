@@ -57,23 +57,29 @@ class Main extends Component{
         }
     }
 
+    
+
     //after clicking add log, state update
     addLogHandler = (e) => {
         e.preventDefault()
 
-        let log = {
-            "day": this.state.day,
-            "startTime": this.state.startTime,
-            "endTime": this.state.endTime,
-            "note": this.state.note
+        if (!this.state.day || !this.state.startTime || !this.state.note){
+            alert('You need to fill in the day, start time and the end time')
+        }else{
+            let log = {
+                "day": this.state.day,
+                "startTime": this.state.startTime,
+                "endTime": this.state.endTime,
+                "note": this.state.note,
+            }
+            
+            //push the data to the firebase
+            const dbRef = firebase.database().ref();
+            dbRef.push(log);
+            
+            //clear the note text input field
+            document.querySelector('.note').value = '';
         }
-        
-        //push the data to the firebase
-        const dbRef = firebase.database().ref();
-        dbRef.push(log);
-        
-        //clear the note text input field
-        document.querySelector('.note').value = ''
     }
 
     
