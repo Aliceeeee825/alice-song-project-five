@@ -17,10 +17,27 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
   -moz-osx-font-smoothing: grayscale;
 } */
 
-@import url('https://fonts.googleapis.com/css?family=Alegreya|Alegreya+Sans:700i&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Alegreya|Alegreya+Sans:700i&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Caladea:700|Libre+Baskerville:700&display=swap'); */
+
+@import url('https://fonts.googleapis.com/css?family=Cinzel:700|EB+Garamond:700|Old+Standard+TT:700&display=swap');
+
+/* @import url('https://fonts.googleapis.com/css?family=Old+Standard+TT&display=swap'); */
+
+h1{
+  /* font-family: 'Libre Baskerville'; */
+  /* font-family: 'Caladea' */
+    /* font-family: 'EB Garamond'; */
+    /* font-family: 'Cinzel'; */
+    font-family: 'Old Standard TT';
+}
+/* h1{
+  font-family: 'Alegreya Sans';
+} */
 
 body{
-  font-family: 'Alegreya';
+  /* font-family: 'Alegreya'; */
   background: #f4f4f4;
   font-size: 62.5%;
 }
@@ -44,8 +61,8 @@ h2{
 
 /* home style */
 .home{
-  background-color: #1a2930;
-  color: white;
+  background-color: #f4f4f4;
+  color: #0a1612;
   height: 100vh;
   font-size: 1.2rem;
   position: relative;
@@ -81,7 +98,7 @@ h2{
 }
 
 .home a{
-  color: white;
+  color: #0a1612;
   text-decoration: none;
 }
 
@@ -106,15 +123,12 @@ justify-content: center;
 }
 
 .loginPage, .registerPage{
+  background:url(./assets/loginLightGreyBg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
   font-size: 1rem;
   flex-direction: column;
-}
-
-.loginPage{
-  background:url(./assets/loginBg.jpg);
 }
 
 .loginLogo{
@@ -177,7 +191,7 @@ justify-content: center;
   border: none;
   border-radius: 5px;
   padding: 1%;
-  color: black;
+  color: rgb(24, 23, 23);;
   transition: color 0.5s, background-color 0.5s;
 }
 
@@ -198,15 +212,6 @@ justify-content: center;
 }
 
 /* reigster page */
-.registerPage{
-  font-size: 1rem;
-  background: url('assets/registerBackground.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
-  font-size: 1rem;
-  color: white
-}
 
 .registerPage h2{
   margin: 0;
@@ -214,18 +219,14 @@ justify-content: center;
 
 /* main page style */
 header{
-  background-color: #1a2930;
+  background-color: #f4f4f4;
   height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
-  color: white;
-}
-
-h1{
-  font-family: 'Alegreya Sans';
+  font-size: 2rem;
+  color: #1a2930;
 }
 
 .wrapper{
@@ -234,10 +235,12 @@ h1{
 }
 
 .mainContent {
+  background-color: #f4f4f4;
   position: relative;
   height: 75vh;
-  width: 90%;
-  margin: 2% auto 0;
+  /* width: 90%; */
+  padding: 2% 5%;
+  margin: 0 auto 0;
   font-size: 1rem;
 }
 
@@ -253,27 +256,44 @@ h1{
   padding: 2%;
 }
 
-.newLogPlus{
-  background-color: #f7ce3e;
-  color: white;
+.newLogPlus, .clear{
+  background-color: #1a2930;
+  color: #f4f4f4;
   border-radius: 50%;
   box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
   border: 1px solid transparent;
-  padding: 1% 1.5%;
   position: absolute;
-  bottom: 10%;
-  right: 5%;
-  transform: none;
   transition: transform 0.5s;
 }
 
-.newLogPlus:hover{
+.newLogPlus{
+  padding: 1% 1.5%;
+  bottom: 10%;
+  right: 11%;
+  transform: none;
+}
+
+.clear{
+  padding: 1% 1.5%;;
+  bottom: 10%;
+  right: 3%;
+}
+
+.newLogPlus:hover,
+.newLogPlus:active,
+.clear:hover,
+.clear:active{
   transform: scale(1.3);
 }
 
 .newLogPlus:active{
   bottom: 9.5%;
-  right: 4.8%
+  right: 10.5%
+}
+
+.clear:active{
+  bottom: 9.5%;
+  right: 2.5%;
 }
 
 button:hover{

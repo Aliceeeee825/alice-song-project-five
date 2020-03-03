@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import firebase from '../firebase';
+import Swal from "sweetalert2";
+
 // import * as firebase from 'firebase/app';
 
 class Main extends Component{
@@ -44,37 +46,34 @@ class Main extends Component{
         let logDetail = document.querySelector('.logDetail');
         logDetail.classList.toggle('hide')
 }
+
+    // after clicking the clear all button
+    removeAll = () => {
+        const dbRef = firebase.database().ref();
+        
+        if (window.confirm("Do you really want to clear everything on your schedule?")){
+            dbRef.remove();
+            window.location.reload()
+        }
+    }
+
     //after clicking add log, state update
     addLogHandler = (e) => {
         e.preventDefault()
+
         let log = {
             "day": this.state.day,
             "startTime": this.state.startTime,
             "endTime": this.state.endTime,
             "note": this.state.note
         }
-        // this.setState({
-        //     listOfLogs[email]: log
-        // })
-            
-        // console.log(this.state.listOfLogs)
-
-        //color the corresponding timeslot on the timetable
-        // console.log('.cellNo' + startTime + '-' + this.state.day)
         
-
         //push the data to the firebase
         const dbRef = firebase.database().ref();
         dbRef.push(log);
-        // dbRef.push()
-        // this.setState({
-        //     listOfLogs: [],
-        // })
         
-    
         //clear the note text input field
         document.querySelector('.note').value = ''
-        console.log('list of logs',this.state.listOfLogs)
     }
 
     
@@ -91,12 +90,9 @@ class Main extends Component{
                 const startTime = item.log.startTime;
                 const endTime = item.log.endTime;
                 const day = item.log.day
-                console.log('startime', startTime)
-                console.log('endTime', endTime)
                 for (let duration = endTime - startTime - 1; duration >= 0; duration--) {
                     let hour = Number(startTime) + duration
-                    console.log(hour)
-                    document.querySelector('.cellNo' + hour + '-' + day).style.backgroundColor = "#f7ce3e";
+                    document.querySelector('.cellNo' + hour + '-' + day).style.backgroundColor = "#c5c1c0";
                     document.querySelector('.cellNo' + hour + '-' + day).innerHTML = item.log.note;
                 }
             })
@@ -106,13 +102,6 @@ class Main extends Component{
     
     render(){
         this.color(this.state.listOfLogs)
-    //     if (this.state.listOfLogs.length > 0){
-    //         console.log("above color", this.state.listOfLogs)
-    //         console.log(this.state.listOfLogs[0].log.startTime)
-    //         this.state.listOfLogs.forEach((log) => {
-    //             this.color(log)
-    //     }   
-    // }
 
         //generate cells
         const appendCell = ((i, content)=>{
@@ -172,7 +161,6 @@ class Main extends Component{
         }
         formEndTime()
         
-        
         return(
             <div className="mainContent">
                 <div className = "calendar">
@@ -185,6 +173,9 @@ class Main extends Component{
                 <div className="newLog">
                     <button className="newLogPlus" onClick={this.newEventHandler}>+</button>
                     <label className="visuallyhidden">add a log</label>
+                </div>
+                <div className="clearAll">
+                    <button className="clear" onClick={this.removeAll}>Clear</button>
                 </div>
 
                 <div className="logDetail hide">
@@ -222,9 +213,9 @@ class Main extends Component{
                         </select>
 
                         <label htmlFor="note">Note</label>
-                        <input type="text" name="note" className="note" value={this.state.note} onChange={this.handleChange} />
+                        <input type="text" name="note" className="note" value={this.state.note} onChange={this.handleChange} maxlength="15"/>
 
-                        <button className="addLog" htmlFor="submit" onClick={this.addLogHandler} max-width="30">Add</button>
+                        <button className="addLog" htmlFor="submit" onClick={this.addLogHandler} >Add</button>
                     </form>
                 </div>
             </div>
