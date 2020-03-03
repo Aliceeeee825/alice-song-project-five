@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8c34acecd636f3b191ad5ff4b396d251",
+    "revision": "37398fbfc76a1aaa9d11ac96f2e54562",
     "url": "/alice-song-project-five/index.html"
   },
   {
-    "revision": "786c3403ce708ab059d2",
-    "url": "/alice-song-project-five/static/css/main.d83b6f54.chunk.css"
+    "revision": "f4c3a3c9913bc8ca9a7b",
+    "url": "/alice-song-project-five/static/css/main.af74dc7a.chunk.css"
   },
   {
     "revision": "77551046a06313d2cc59",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/alice-song-project-five/static/js/2.c381224a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "786c3403ce708ab059d2",
-    "url": "/alice-song-project-five/static/js/main.cd3da96f.chunk.js"
+    "revision": "f4c3a3c9913bc8ca9a7b",
+    "url": "/alice-song-project-five/static/js/main.fe4bc4ee.chunk.js"
   },
   {
     "revision": "b562a1abafc37ff297e0",
