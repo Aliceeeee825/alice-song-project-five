@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import firebase from '../firebase';
-import Swal from "sweetalert2";
 
 // import * as firebase from 'firebase/app';
 
