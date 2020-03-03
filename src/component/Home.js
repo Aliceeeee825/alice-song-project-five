@@ -26,7 +26,7 @@ class Home extends Component{
                                 <a href = "/login">Login</a>
                             </li>
                             <li>
-                                <a href="/register">Register</a>
+                                <a href={process.env.PUBLIC_URL + '/register'}>Register</a>
                             </li>
                         </ul>
                     </nav>
