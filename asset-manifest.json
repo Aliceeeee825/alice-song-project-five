@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/alice-song-project-five/static/css/main.78746b69.chunk.css",
-    "main.js": "/alice-song-project-five/static/js/main.682b7180.chunk.js",
-    "main.js.map": "/alice-song-project-five/static/js/main.682b7180.chunk.js.map",
+    "main.css": "/alice-song-project-five/static/css/main.136f3a8a.chunk.css",
+    "main.js": "/alice-song-project-five/static/js/main.6093de79.chunk.js",
+    "main.js.map": "/alice-song-project-five/static/js/main.6093de79.chunk.js.map",
     "runtime-main.js": "/alice-song-project-five/static/js/runtime-main.f6fd186f.js",
     "runtime-main.js.map": "/alice-song-project-five/static/js/runtime-main.f6fd186f.js.map",
-    "static/js/2.50a9098a.chunk.js": "/alice-song-project-five/static/js/2.50a9098a.chunk.js",
-    "static/js/2.50a9098a.chunk.js.map": "/alice-song-project-five/static/js/2.50a9098a.chunk.js.map",
+    "static/js/2.a8266835.chunk.js": "/alice-song-project-five/static/js/2.a8266835.chunk.js",
+    "static/js/2.a8266835.chunk.js.map": "/alice-song-project-five/static/js/2.a8266835.chunk.js.map",
     "index.html": "/alice-song-project-five/index.html",
-    "precache-manifest.e8c238410f9fb1c692dcce70e9cfa2d6.js": "/alice-song-project-five/precache-manifest.e8c238410f9fb1c692dcce70e9cfa2d6.js",
+    "precache-manifest.b266f4dfc28f3f0a37e54c80e4eb5f68.js": "/alice-song-project-five/precache-manifest.b266f4dfc28f3f0a37e54c80e4eb5f68.js",
     "service-worker.js": "/alice-song-project-five/service-worker.js",
-    "static/css/main.78746b69.chunk.css.map": "/alice-song-project-five/static/css/main.78746b69.chunk.css.map",
-    "static/js/2.50a9098a.chunk.js.LICENSE.txt": "/alice-song-project-five/static/js/2.50a9098a.chunk.js.LICENSE.txt",
+    "static/css/main.136f3a8a.chunk.css.map": "/alice-song-project-five/static/css/main.136f3a8a.chunk.css.map",
+    "static/js/2.a8266835.chunk.js.LICENSE.txt": "/alice-song-project-five/static/js/2.a8266835.chunk.js.LICENSE.txt",
     "static/media/calendarLogo.svg": "/alice-song-project-five/static/media/calendarLogo.4db167f8.svg",
     "static/media/homeLogo.svg": "/alice-song-project-five/static/media/homeLogo.d1720d81.svg",
     "static/media/registerLogo.svg": "/alice-song-project-five/static/media/registerLogo.e013f98b.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.f6fd186f.js",
-    "static/js/2.50a9098a.chunk.js",
-    "static/css/main.78746b69.chunk.css",
-    "static/js/main.682b7180.chunk.js"
+    "static/js/2.a8266835.chunk.js",
+    "static/css/main.136f3a8a.chunk.css",
+    "static/js/main.6093de79.chunk.js"
   ]
 }
