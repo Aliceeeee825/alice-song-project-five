@@ -1,14 +1,13 @@
+//need to figure out how to associate the data I passed to firebase and the email address from the log in page so that the user can actually use their own account.
 import React, { Component } from 'react';
 import firebase from '../firebase';
-
-// import * as firebase from 'firebase/app';
 
 class Main extends Component{
     constructor(){
         super();
 
         this.state = {
-            email: 'alice',
+            email: '',
             listOfLogs: [],
             day:  '',
             startTime: '',
@@ -62,10 +61,11 @@ class Main extends Component{
     addLogHandler = (e) => {
         e.preventDefault()
 
-        if (!this.state.day || !this.state.startTime || !this.state.note){
+        if (!this.state.day || !this.state.startTime || !this.state.endTime){
             alert('You need to fill in the day, start time and the end time')
         }else{
             let log = {
+                "email": this.state.email,
                 "day": this.state.day,
                 "startTime": this.state.startTime,
                 "endTime": this.state.endTime,
@@ -89,6 +89,7 @@ class Main extends Component{
         })
     }
     
+    //grab the information from firebase and color corresponding cells
     color = (listOfItem) => {
         if (listOfItem.length > 0){
             listOfItem.forEach((item) => {
@@ -104,7 +105,6 @@ class Main extends Component{
         }
     }
 
-    
     render(){
         this.color(this.state.listOfLogs)
 
@@ -218,7 +218,7 @@ class Main extends Component{
                         </select>
 
                         <label htmlFor="note">Note</label>
-                        <input type="text" name="note" className="note" value={this.state.note} onChange={this.handleChange} maxlength="15"/>
+                        <input type="text" name="note" className="note" value={this.state.note} onChange={this.handleChange} maxLength="15"/>
 
                         <button className="addLog" htmlFor="submit" onClick={this.addLogHandler} >Add</button>
                     </form>

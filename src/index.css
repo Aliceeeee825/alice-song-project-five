@@ -8,55 +8,34 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 .visuallyhidden:not(:focus):not(:active) { position: absolute; width: 1px; height: 1px; margin: -1px;border: 0;padding: 0;white-space: nowrap;clip-path: inset(100%);clip: rect(00 0 0);overflow: hidden;}
 
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-} */
-
-/* @import url('https://fonts.googleapis.com/css?family=Alegreya|Alegreya+Sans:700i&display=swap');
-
-@import url('https://fonts.googleapis.com/css?family=Caladea:700|Libre+Baskerville:700&display=swap'); */
 
 @import url('https://fonts.googleapis.com/css?family=Cinzel:700|EB+Garamond:700|Old+Standard+TT:700&display=swap');
 
-/* @import url('https://fonts.googleapis.com/css?family=Old+Standard+TT&display=swap'); */
-
-h1{
-  /* font-family: 'Libre Baskerville'; */
-  /* font-family: 'Caladea' */
-    /* font-family: 'EB Garamond'; */
-    /* font-family: 'Cinzel'; */
-    font-family: 'Old Standard TT';
+.App {
+  text-align: center;
 }
-/* h1{
-  font-family: 'Alegreya Sans';
-} */
 
 body{
-  /* font-family: 'Alegreya'; */
+  font-family: Arial, Helvetica, sans-serif;
   background: #f4f4f4;
   font-size: 62.5%;
 }
 
-img{
-  max-width: 100%;
-  display: inline-block;
+h1,
+h2{
+    font-family: 'Old Standard TT';
 }
 
 h2{
   font-size: 1.5rem;
 }
-/* code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
+img{
+  max-width: 100%;
+  display: inline-block;
+}
 
-.App {
-  text-align: center;
+button:hover{
+  cursor: pointer;
 }
 
 /* home style */
@@ -66,7 +45,6 @@ h2{
   height: 100vh;
   font-size: 1.2rem;
   position: relative;
-  /* float: left; */
 }
 
 .homeHead{
@@ -102,11 +80,46 @@ h2{
   text-decoration: none;
 }
 
-
 .home h1{
   font-size: 4rem;
   margin-top: 10%;
   margin-bottom: 0;
+}
+
+/* Home responsive design */
+@media(max-width: 700px){
+  .home nav{
+    justify-content: space-between
+    /* margin-right: 5%; */
+  }
+  .homeText{
+    margin-top: 20%;
+  }
+}
+
+@media(max-width:530px){
+  .home nav{
+    margin-right: 10%;
+  }
+  .homeText{
+    margin-top: 30%;
+  }
+  .homeText h1{
+    font-size: 2.5rem
+  }
+  .homeText h2{
+    font-size: 1.3rem;
+  }
+}
+
+@media(max-width: 420px){
+  .home nav{
+    margin-right: 25%;
+  }
+
+  .homeText{
+    margin-top: 40%;
+  }
 }
 
 
@@ -139,7 +152,6 @@ justify-content: center;
 .registerContent{
   background: #1a2930;
   color: white;
-  /* border: 5px solid white; */
   box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
   padding: 5% 2%;
   width: 40%;
@@ -195,6 +207,11 @@ justify-content: center;
   transition: color 0.5s, background-color 0.5s;
 }
 
+.loginForm button a,
+.registerForm button a{
+  color: rgb(24, 23, 23);
+}
+
 .loginForm button:hover,
 .loginForm button:focus,
 .registerForm button:hover,
@@ -211,10 +228,52 @@ justify-content: center;
   left: 2px;
 }
 
-/* reigster page */
+/* login page responsive design */
 
+@media(max-width: 820px){
+  .loginContent,
+  .registerContent{
+    width: 60%;
+  }
+  .loginLogo,
+  .registerLogo{
+    display: none;
+  }
+}
+
+@media(max-width: 460px){
+  .loginContent{
+    width: 80%;
+  }
+}
+
+@media(max-width: 260px){
+  .loginContent{
+    width: 95%;
+  }
+}
+/* reigster page */
 .registerPage h2{
   margin: 0;
+}
+
+/* register page responsive design */
+@media(max-width: 510px){
+  .registerContent{
+    width: 75%;
+  }
+}
+
+@media(max-width: 360px){
+  .registerContent{
+    width: 85%;
+  }
+}
+
+@media(max-width: 230px){
+  .registerContent{
+    width: 95%;
+  }
 }
 
 /* main page style */
@@ -238,7 +297,6 @@ header{
   background-color: #f4f4f4;
   position: relative;
   height: 75vh;
-  /* width: 90%; */
   padding: 2% 5%;
   margin: 0 auto 0;
   font-size: 1rem;
@@ -252,65 +310,121 @@ header{
 
 .cell{
   border: 1px solid #0a1612;
-  /* border-right: 1px solid #0a1612; */
   padding: 2%;
 }
 
 .newLogPlus, .clear{
   background-color: #1a2930;
   color: #f4f4f4;
-  border-radius: 50%;
   box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
   border: 1px solid transparent;
   position: absolute;
+  bottom: 6%;
   transition: transform 0.5s;
 }
 
 .newLogPlus{
   padding: 1% 1.5%;
-  bottom: 10%;
-  right: 11%;
+  right: 13%;
   transform: none;
+  border-radius: 50%;
 }
 
 .clear{
-  padding: 1% 1.5%;;
-  bottom: 10%;
-  right: 3%;
+  padding: 1% 1.5%;
+  right: 5%;
 }
 
 .newLogPlus:hover,
 .newLogPlus:active,
 .clear:hover,
 .clear:active{
-  transform: scale(1.3);
+  transform: scale(1.2);
 }
 
 .newLogPlus:active{
-  bottom: 9.5%;
-  right: 10.5%
+  bottom: 5.5%;
+  right: 12.5%
 }
 
 .clear:active{
-  bottom: 9.5%;
-  right: 2.5%;
-}
-
-button:hover{
-  cursor: pointer;
+  bottom: 5.5%;
+  right: 4.5%;
 }
 
 /* form styling */
-.addLogForm{
+.logDetail{
   margin-right: 5%;
+  width: 85%;
 }
+
+.addLogForm{
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .addLogForm label{
   margin: 1%;
 }
 
 .addLog{
   background-color: #f4f4f4;
-  box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+  border: 1px solid #1a2930;
+  transition: all 0.5s;
+}
+
+.addLog:hover,
+.addLog:active,
+.addLog:focus{
+  background-color: #1a2930;
+  color: #f4f4f4;
+}
+
+@media(max-width: 1080px){
+  .logDetail{
+    width: 80%;
+    margin: 0;
+  }
+  .addLogForm{
+    justify-content: center;
+  }
+  .addLogForm input[type='text']{
+    width: 15%;
+  }
+}
+
+@media(max-width: 800px){
+  .newLogPlus{
+    bottom: 15%;
+  }
+
+  .newLogPlus:active{
+    bottom: 14.5%
+  }
+
+  .clear{
+    right: 11.5%;
+  }
+
+  .clear:active{
+    right: 11%;
+  }
+}
+
+@media(max-width: 490px){
+  header{
+    height: 15vh
+  }
+  header h1{
+    font-size: 2.5rem;
+    margin-bottom: 1%;
+  }
+}
+
+@media(max-width: 390px){
+  .logDetail{
+    width: 70%
+  }
 }
 
 /* classes for java script */

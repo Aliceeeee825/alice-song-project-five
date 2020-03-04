@@ -1,25 +1,12 @@
 import React, { Component } from 'react';
-// import withFirebaseAuth from 'react-with-firebase-auth'
-// import * as firebase from 'firebase/app';
-// import 'firebase/auth';
-// import firebaseConfig from '../firebase';
-import ReactDom from 'react-dom';
 import firebase from '../firebase';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import calendarLogo from '../assets/calendarLogo.svg'
 
-//sample email and pw
-// sample@alice.com
-// abc123
-// const firebaseApp = firebase.initializeApp(firebaseConfig)
-
 const auth = firebase.auth()
-const provider = new firebase.auth.GoogleAuthProvider();
-
 
 class Login extends Component{
-
     constructor(){
         super();
         this.state = {
@@ -29,51 +16,43 @@ class Login extends Component{
         }
     }
 
+    //get user input and store them in the state
     handleChange = (e) => {
         this.setState({
             [e.target.name] : e.target.value
         })
     }
     
-    
-    checkStatus = (e) =>{
+    //when the user is not null, log in
+    login = (e) => {
         e.preventDefault();
-        // firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((res) =>{
-        //     if (res.user){
-        //         firebaseConfig.auth().setLoggedIn(true);
-        //         return <Redirect to = '/main' />
-        //     }
-        // }).catch(e => {
-        //     console.log(e.message)
-        // })
-    }
 
-    // login = () => {
-    //     auth.signInWithPopup(provider)
-    //         .then((result) => {
-    //             const user = result.user;
-    //             this.setState({
-    //                 user
-    //             });
-    //         });
-    // }
-
-    login = () => {
-        auth.signInWithPopup(provider)
-            .then((result) => {
-                const user = result.user;
-                this.setState({
-                    user
-                });
+        const email = this.state.email;
+        const password = this.state.password;
+        
+        //check the email and the password with firebase
+        auth.signInWithEmailAndPassword(email, password).then((result) => {
+            window.location.replace('/main')
+        }).catch((error) => {
+            alert(error.message)
+        })
+        
+        //when the authorization changes, reset the state
+        auth.onAuthStateChanged(user => {
+            this.setState({
+                user
             });
+        })
     }
 
+    //when the user is not null in the state, reset it to null
     logout = () => {
         auth.signOut()
             .then(() => {
                 this.setState({
                     user: null
                 });
+                window.location.replace('/login')
             });
     }
 
@@ -86,13 +65,6 @@ class Login extends Component{
     }
     
     render(){
-        //firebase init
-        // const {
-        //     user,
-        //     signOut,
-        //     signInWithGoogle,
-        // } = this.props;
-
         return(
             <div className="loginPage">
                 <div className="loginContent">
@@ -103,44 +75,19 @@ class Login extends Component{
                     <form action="GET" className="loginForm" onSubmit={this.checkStatus}>
                         <h2>Welcome Back!</h2>
                         <label htmlFor="email">Emaill address</label>
-                        <input type="email" id="email" name="email" value={this.state.email} onChange={this.handleChange}></input>
+                        <input type="email" id="email" name="email" onChange={this.handleChange} placeholder="sample@alice.com"></input>
     
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" name="password" value={this.state.password} onChange={this.handleChange}></input>
+                        <input type="password" id="password" name="password" onChange={this.handleChange} placeholder="abc123"></input>
     
-                        <a href="/register">Don't have an account yet? Register here!</a>
+                        <Link to="/register">Don't have an account yet? Register here!</Link>
 
-                        {/* <button onClick={signInWithGoogle}>Sign in with Google</button> */}
-    
-                        {/* <button type="submit">Login</button> */}
-                        {this.state.user ? <button onClick={this.logout}>Log Out</button> : <button onClick={this.login}>Log In</button>}
+                        {this.state.user ? <button onClick={this.login}>Log In</button> : <button onClick={this.logout}>Log Out</button>}
                     </form>
                 </div>
             </div>
         )
     }
 }
-
-// export default Login 
-// try {
-//     const firebaseApp = firebase.initializeApp(firebaseConfig)
-//     const firebaseAppAuth = firebaseApp.auth();
-//     const providers = {
-//         googleProvider: new firebase.auth.GoogleAuthProvider(),
-//     };
-// } catch (err) {
-//     if (!/already exist/.test(err.message)) {
-//         console.error('Firebase initialization error', err.stack)
-//     }
-// }
-// const firebaseApp = firebase.initializeApp(firebaseConfig)
-//     const firebaseAppAuth = firebaseApp.auth();
-//     const providers = {
-//         googleProvider: new firebase.auth.GoogleAuthProvider(),
-//     };
-// export default withFirebaseAuth({
-//     providers,
-//     firebaseAppAuth,
-// })(Login);
 
 export default Login

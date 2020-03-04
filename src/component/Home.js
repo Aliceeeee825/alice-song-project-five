@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../assets/homeLogo.svg';
 
 
 
 class Home extends Component{
-    constructor(){
-        super();
-        
-    };
-
-
-
     render(){
         return(
             <div className="home">
@@ -23,17 +16,19 @@ class Home extends Component{
                     <nav>
                         <ul>
                             <li>
-                                <a href = "/login">Login</a>
+                                <Link to= "/login">Login</Link>
                             </li>
                             <li>
-                                <a href={process.env.PUBLIC_URL + '/register'}>Register</a>
+                                <Link to='/register'>Register</Link>
                             </li>
                         </ul>
                     </nav>
                 </div>
 
-                <h1 className="logo-mask">TIME LOGGER</h1>
-                <h2>A handy tool that helps you track your time</h2>
+                <div className="homeText">
+                    <h1>TIME LOGGER</h1>
+                    <h2>A handy tool that helps you track your time</h2>
+                </div>
             </div>
         )
     }

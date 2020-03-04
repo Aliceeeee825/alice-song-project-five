@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
-// import './App.css';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import './index.css'
 
 import Home from './component/Home';
@@ -12,7 +11,7 @@ import Main from './component/Main'
 class App extends Component {
   render(){
     return (
-      <Router>
+      <Router basename="/">
         <div className="App">
           <Switch>
             <Route path='/login'>
@@ -23,7 +22,7 @@ class App extends Component {
               <Register />
             </Route>
 
-            <Route path = '/main'>
+            <Route path='/main'>
               <Header />
               <Main />
             </Route>
