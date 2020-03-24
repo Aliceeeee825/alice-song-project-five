@@ -13,24 +13,12 @@ class App extends Component {
     return (
       <Router basename="/">
         <div className="App">
-          <Switch>
-            <Route path='/login'>
-              <Login />
-            </Route>
-
-            <Route path='/register'>
-              <Register />
-            </Route>
-
-            <Route path='/main'>
-              <Header />
-              <Main />
-            </Route>
-
-            <Route path='/'>
-              <Home />
-            </Route>
-          </Switch>
+          {/* <Switch> */}
+            <Route path='/login' component={Login} />
+            <Route path='/register' component={Register} />
+            <Route path='/main' component={Main} />
+            <Route path='/' component={Home} exact />
+          {/* </Switch> */}
         </div>
       </Router>
     );

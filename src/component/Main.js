@@ -1,6 +1,7 @@
 //need to figure out how to associate the data I passed to firebase and the email address from the log in page so that the user can actually use their own account.
 import React, { Component } from 'react';
 import firebase from '../firebase';
+import Header from '../component/Header'
 
 class Main extends Component{
     constructor(){
@@ -168,6 +169,7 @@ class Main extends Component{
         
         return(
             <div className="mainContent">
+                <Header />
                 <div className = "calendar">
                     {cellGenerator.map((cell) => {
                         return cell
