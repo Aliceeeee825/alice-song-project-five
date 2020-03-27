@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase from '../firebase';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import calendarLogo from '../assets/calendarLogo.svg'
 
@@ -13,6 +13,7 @@ class Login extends Component{
             user: null,
             email: '',
             password: '',
+            redirect: false
         }
     }
 
@@ -32,7 +33,9 @@ class Login extends Component{
         
         //check the email and the password with firebase
         auth.signInWithEmailAndPassword(email, password).then((result) => {
-            window.location.replace('/main')
+            this.setState({
+                redirect: true
+            })
         }).catch((error) => {
             alert(error.message)
         })
@@ -40,8 +43,16 @@ class Login extends Component{
         //when the authorization changes, reset the state
         auth.onAuthStateChanged(user => {
             this.setState({
-                user
-            });
+                user,
+                email,
+                password
+            }, () => {
+                const {
+                    getEmail
+                } = this.props;
+
+                getEmail(email)
+            })
         })
     }
 
@@ -63,10 +74,19 @@ class Login extends Component{
             }
         });
     }
+
+    renderRedirect = () => {
+        if (this.state.redirect){
+            return <Redirect to='/main'></Redirect>
+        }else{
+            return <Redirect to='/login'></Redirect>
+        }
+    }
     
     render(){
         return(
             <div className="loginPage">
+                {this.renderRedirect()}
                 <div className="loginContent">
                     <div className="loginLogo">
                         <img src={calendarLogo} alt="A calendar with a check mark inside. Icon made by Free icons from www.freeicons.io"/>
@@ -81,6 +101,8 @@ class Login extends Component{
                         <input type="password" id="password" name="password" onChange={this.handleChange} placeholder="abc123"></input>
     
                         <Link to="/register">Don't have an account yet? Register here!</Link>
+
+                        <Link to="/main">Or continue as a guest</Link>
 
                         {this.state.user ? <button onClick={this.login}>Log In</button> : <button onClick={this.logout}>Log Out</button>}
                     </form>

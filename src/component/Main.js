@@ -2,18 +2,19 @@
 import React, { Component } from 'react';
 import firebase from '../firebase';
 import Header from '../component/Header'
+import { Redirect } from 'react-router-dom';
 
 class Main extends Component{
-    constructor(){
+    constructor(props){
         super();
 
         this.state = {
-            email: '',
             listOfLogs: [],
             day:  '',
             startTime: '',
             endTime: '',
             note: '',
+            redirect: false
         }
     }
 
@@ -30,9 +31,10 @@ class Main extends Component{
                     key: key,
                     log: dataFromDb[key]
                 }
-                stateToBeSet.push(logDetail)
+                if (logDetail.log.email === this.props.userEmail){
+                    stateToBeSet.push(logDetail)
+                }
             }
-
             this.setState({
                 listOfLogs: stateToBeSet
             })
@@ -52,11 +54,18 @@ class Main extends Component{
         
         if (window.confirm("Do you really want to clear everything on your schedule?")){
             dbRef.remove();
-            window.location.reload()
+            this.setState({
+                redirect: true
+            })
         }
     }
 
-    
+    renderRedirect = () => {
+        console.log(this.state.redirect)
+        if (this.state.redirect) {
+            return <Redirect to='/main'></Redirect>
+        }
+    }
 
     //after clicking add log, state update
     addLogHandler = (e) => {
@@ -66,12 +75,13 @@ class Main extends Component{
             alert('You need to fill in the day, start time and the end time')
         }else{
             let log = {
-                "email": this.state.email,
+                "email": this.props.userEmail,
                 "day": this.state.day,
                 "startTime": this.state.startTime,
                 "endTime": this.state.endTime,
                 "note": this.state.note,
             }
+            console.log(log)
             
             //push the data to the firebase
             const dbRef = firebase.database().ref();
@@ -108,7 +118,6 @@ class Main extends Component{
 
     render(){
         this.color(this.state.listOfLogs)
-
         //generate cells
         const appendCell = ((i, content)=>{
             cellGenerator.push(
@@ -171,6 +180,7 @@ class Main extends Component{
             <div className="mainContent">
                 <Header />
                 <div className = "calendar">
+                    {this.renderRedirect()}
                     {cellGenerator.map((cell) => {
                         return cell
                     })
