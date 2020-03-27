@@ -32,11 +32,15 @@ class Login extends Component{
         const password = this.state.password;
         
         //check the email and the password with firebase
-        auth.signInWithEmailAndPassword(email, password).then((result) => {
-            this.setState({
-                redirect: true
+        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() =>{
+            auth.signInWithEmailAndPassword(email, password).then((result) => {
+                this.setState({
+                    redirect: true
+                })
+            }).catch((error) => {
+                alert(error.message)
             })
-        }).catch((error) => {
+        }).catch(function(error){
             alert(error.message)
         })
         
@@ -51,7 +55,7 @@ class Login extends Component{
                     getEmail
                 } = this.props;
 
-                getEmail(email)
+                getEmail(email, user)
             })
         })
     }
@@ -77,7 +81,7 @@ class Login extends Component{
 
     renderRedirect = () => {
         if (this.state.redirect){
-            return <Redirect to='/main'></Redirect>
+            return <Redirect to={`/main`}></Redirect>
         }else{
             return <Redirect to='/login'></Redirect>
         }

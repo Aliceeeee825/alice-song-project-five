@@ -1,7 +1,6 @@
 //need to figure out how to associate the data I passed to firebase and the email address from the log in page so that the user can actually use their own account.
 import React, { Component } from 'react';
 import firebase from '../firebase';
-import Header from '../component/Header'
 import { Redirect } from 'react-router-dom';
 
 class Main extends Component{
@@ -14,11 +13,12 @@ class Main extends Component{
             startTime: '',
             endTime: '',
             note: '',
-            redirect: false
+            redirect: false,
+            email: props.userEmail
         }
     }
 
-    componentDidMount(){
+    retriveData = () =>{
         const dbRef = firebase.database().ref();
 
         dbRef.on('value', (response) => {
@@ -31,7 +31,7 @@ class Main extends Component{
                     key: key,
                     log: dataFromDb[key]
                 }
-                if (logDetail.log.email === this.props.userEmail){
+                if (logDetail.log.email === this.props.userEmail) {
                     stateToBeSet.push(logDetail)
                 }
             }
@@ -39,7 +39,10 @@ class Main extends Component{
                 listOfLogs: stateToBeSet
             })
         })
+    }
 
+    componentDidMount(){
+        this.retriveData()
     }
 
     // after clicking the plus button, the log form shows up
@@ -54,10 +57,11 @@ class Main extends Component{
         
         if (window.confirm("Do you really want to clear everything on your schedule?")){
             dbRef.remove();
-            this.setState({
-                redirect: true
-            })
         }
+
+        this.retriveData();
+        this.color(this.state.listOfLogs)
+
     }
 
     renderRedirect = () => {
@@ -113,6 +117,12 @@ class Main extends Component{
                     document.querySelector('.cellNo' + hour + '-' + day).innerHTML = item.log.note;
                 }
             })
+        }
+        else if (listOfItem.length === 0){
+            // cellGenerator.map((cell) => {
+            //     return cell
+            // })
+            console.log(listOfItem.length)
         }
     }
 
@@ -178,7 +188,10 @@ class Main extends Component{
         
         return(
             <div className="mainContent">
-                <Header />
+                <header>
+                    <h1>Time Logger</h1>
+                    <p>Hi {this.props.userEmail}</p>
+                </header>
                 <div className = "calendar">
                     {this.renderRedirect()}
                     {cellGenerator.map((cell) => {

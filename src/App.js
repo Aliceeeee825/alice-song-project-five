@@ -13,12 +13,14 @@ class App extends Component {
 
     this.state = {
       userEmail: '',
+      user:'',
     }
   }
 
-  getEmail = (email) => {
+  getEmail = (email, user) => {
     this.setState({
-      userEmail: email
+      userEmail: email,
+      user: user
     })
   }
 
@@ -29,7 +31,7 @@ class App extends Component {
           {/* <Switch> */}
             <Route path='/login' render={() => <Login getEmail = {this.getEmail}/> }/>
             <Route path='/register' component={Register} />
-            <Route path='/main' render={() => <Main userEmail ={this.state.userEmail}/> }/>
+            <Route path='/main' render={() => <Main userEmail ={this.state.userEmail} user={this.state.user}/> }/>
             <Route path='/' component={Home} exact/>
           {/* </Switch> */}
         </div>
