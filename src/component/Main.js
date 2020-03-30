@@ -63,7 +63,7 @@ class Main extends Component{
     }
 
     componentDidMount(){
-        console.log(this.props.userEmail)
+        console.log(this.props.location.state)
         if (this.props.userEmail){
             this.generateCell()
             this.retriveData()
@@ -245,7 +245,7 @@ class Main extends Component{
                 {this.renderRedirect()}
                 <header>
                     <h1>Time Logger</h1>
-                    <Link to="/home">Log Out</Link>
+                    <Link to="/">Log Out</Link>
 
                 </header>
                 <div className = "calendar">

@@ -87,22 +87,22 @@ class Login extends Component{
         }
     }
 
-    guest = () => {
-        const user = 'guest'
-        const email='guest'
-        const password = 'guest'
-        this.setState({
-            user,
-            email,
-            password
-        }, () => {
-            const {
-                getEmail
-            } = this.props;
+    // guest = () => {
+    //     const user = 'guest'
+    //     const email='guest'
+    //     const password = 'guest'
+    //     this.setState({
+    //         user,
+    //         email,
+    //         password
+    //     }, () => {
+    //         const {
+    //             getEmail
+    //         } = this.props;
 
-            getEmail(email, user)
-        })
-    }
+    //         getEmail(email, user)
+    //     })
+    // }
     
     render(){
         return(
@@ -123,7 +123,14 @@ class Login extends Component{
     
                         <Link to="/register">Don't have an account yet? Register here!</Link>
 
-                        <Link to="/main" onClick={this.guest}>Or continue as a guest</Link>
+                        <Link to={{
+                            pathname:"/main", 
+                            state:{
+                                guest: true
+                            }
+                        }} 
+                        // onClick={this.guest}
+                        >Or continue as a guest</Link>
 
                         {this.state.user ? <button onClick={this.login}>Log In</button> : <button onClick={this.logout}>Log Out</button>}
                     </form>
