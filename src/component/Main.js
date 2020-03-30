@@ -1,7 +1,7 @@
 //need to figure out how to associate the data I passed to firebase and the email address from the log in page so that the user can actually use their own account.
 import React, { Component } from 'react';
 import firebase from '../firebase';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class Main extends Component{
     constructor(props){
@@ -14,7 +14,12 @@ class Main extends Component{
             endTime: '',
             note: '',
             redirect: false,
-            email: props.userEmail
+            email: props.userEmail,
+            cellGenerator: [],
+            weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            formDateToApend: [],
+            startTimeToAppend: [],
+            endTimeToAppend:[],
         }
     }
 
@@ -41,10 +46,35 @@ class Main extends Component{
         })
     }
 
-    componentDidMount(){
-        this.retriveData()
+    getEmail = () => {
+        const localEmail = localStorage.getItem('localEmail')
+        console.log(localEmail)
+        this.setState({
+            email: localEmail
+        })
     }
 
+    setEmailFromLocal = (userEmail) =>{
+        localStorage.setItem('localEmail', userEmail)
+        console.log(userEmail)
+        this.setState({
+            email: userEmail
+        })
+    }
+
+    componentDidMount(){
+        console.log(this.props.userEmail)
+        if (this.props.userEmail){
+            this.generateCell()
+            this.retriveData()
+            this.formDate(this.state.weekdays)
+            this.formStartTime()
+        } else{
+            this.setState({
+                // redirect: true
+            })
+        }
+    }
     // after clicking the plus button, the log form shows up
     newEventHandler = () => {
         let logDetail = document.querySelector('.logDetail');
@@ -57,17 +87,18 @@ class Main extends Component{
         
         if (window.confirm("Do you really want to clear everything on your schedule?")){
             dbRef.remove();
+            this.setState({
+                cellGenerator: []
+            },()=>{
+                this.generateCell()
+            })
         }
-
-        this.retriveData();
-        this.color(this.state.listOfLogs)
-
     }
 
     renderRedirect = () => {
         console.log(this.state.redirect)
         if (this.state.redirect) {
-            return <Redirect to='/main'></Redirect>
+            return <Redirect to='/login'></Redirect>
         }
     }
 
@@ -77,7 +108,11 @@ class Main extends Component{
 
         if (!this.state.day || !this.state.startTime || !this.state.endTime){
             alert('You need to fill in the day, start time and the end time')
-        }else{
+        }
+        // else if(this.state.endTime <= this.state.startTime) {
+        //     alert('Please choose an end time that is later than the start time')
+        // }
+        else{
             let log = {
                 "email": this.props.userEmail,
                 "day": this.state.day,
@@ -93,6 +128,7 @@ class Main extends Component{
             
             //clear the note text input field
             document.querySelector('.note').value = '';
+            this.color(this.state.listOfLogs)
         }
     }
 
@@ -101,6 +137,15 @@ class Main extends Component{
     handleChange = (e) =>{
         this.setState({
             [e.target.name]: e.target.value
+        })
+    }
+
+    handleStartChange = (e) => {
+        this.setState({
+            startTime:e.target.value,
+            endTimeToAppend: []
+        }, () => {
+            this.formEndTime()
         })
     }
     
@@ -119,85 +164,95 @@ class Main extends Component{
             })
         }
         else if (listOfItem.length === 0){
-            // cellGenerator.map((cell) => {
-            //     return cell
-            // })
-            console.log(listOfItem.length)
+        }
+    }
+
+    appendCell = ((i, content) => {
+        let cellGenerator = this.state.cellGenerator
+        cellGenerator.push(<div className={`cellNo${i} cell`} key={i} >{content}</div>)
+        this.setState({
+            cellGenerator: cellGenerator
+        })
+    })
+
+    //give the calendar column and row names
+    generateCell = () =>{
+        const weekdays = this.state.weekdays
+        let counter = 8
+        for (let i = 0; i <= 111; i++) {
+            if (1 <= i && i <= 7) {
+                // add days of week in
+                this.appendCell(i, weekdays[(i - 1)])
+            }
+            else {
+                //add time period in
+                if ((i % 8 === 0 && i > 8) || i === 8) {
+                    this.appendCell(i, `${counter}:00`)
+                    counter ++ 
+                }
+                else {
+                    // give coordinates to each cell 
+                    let x = Math.floor(i / 8);
+                    let y = i % 8;
+                    this.appendCell(x + "-" + y, ``)
+                }
+            }
+        }
+    }
+
+    // add options for form 
+    formDate = (weekdays) => {
+        for (let i = 0; i <= 6; i++) {
+            let formDateToApend = this.state.formDateToApend
+            formDateToApend.push(<option key={`${weekdays[i]}`} value={`${i + 1}`} >{weekdays[i]}</option>)
+            this.setState({
+                formDateToApend: formDateToApend
+            })
+        }
+    }
+    
+
+    formStartTime = () => {
+        for (let i = 1; i <= 13; i++) {
+            let startTimeToAppend = this.state.startTimeToAppend
+            startTimeToAppend.push(<option key={`${i + 7}`} value={`${i}`} >{i + 7}</option>)
+            this.setState({
+                startTimeToAppend: startTimeToAppend
+            })
+        }
+    }
+    
+
+    formEndTime = () => {
+        for (let i = 1; i <= 13; i++) {
+            if ((i + 1) > this.state.startTime) {
+                let endTimeToAppend = this.state.endTimeToAppend
+                endTimeToAppend.push(<option key={`${i + 8}`} value={`${i + 1}`} >{i + 8}</option>)
+                this.setState({
+                    endTimeToAppend: endTimeToAppend
+                })
+            }
         }
     }
 
     render(){
+        
         this.color(this.state.listOfLogs)
         //generate cells
-        const appendCell = ((i, content)=>{
-            cellGenerator.push(
-                <div className = {`cellNo${i} cell`} key={i}>{content}</div>
-            )
-        })
-
-        //give the calendar column and row names
-        const cellGenerator = [];
-        const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        let counter = 8;
-        for (let i = 0; i <= 111; i++) {
-            if (1<=i && i<=7){
-                // add days of week in
-                appendCell(i, weekdays[(i-1)])
-            }
-            else{
-                //add time period in
-                if ( (i % 8 === 0 && i > 8)|| i === 8) {
-                    appendCell(i, `${counter}:00`)
-                    counter ++;
-                }
-                else{
-                    // give coordinates to each cell 
-                    let x = Math.floor(i/8);
-                    let y = i % 8;
-                    appendCell(x + "-" + y, ``)
-                }
-            }
-        }
-
-        // add options for form 
-        let formDateToApend = [];
-        const formDate = (weekdays) => {
-            for (let i = 0; i <= 6; i++){
-                formDateToApend.push(<option key={`${weekdays[i]}`} value={`${i + 1}`} >{weekdays[i]}</option>)
-            }
-        }
-        formDate(weekdays)
-
-        let startTimeToAppend = [];
-        const formStartTime = () => {
-            for (let i = 1; i <= 13; i++){
-                startTimeToAppend.push(<option key={`${i+7}`} value={`${i}`} >{i+7}</option>)
-            }
-        }
-        formStartTime()
-
-        let endTimeToAppend = [];
-        const formEndTime = () => {
-            for (let i = 1; i <= 13; i++) {
-                if ((i+1) > this.state.startTime){
-                    endTimeToAppend.push(<option key={`${i + 8}`} value={`${i+1}`} >{i + 8}</option>)
-                }
-            }
-        }
-        formEndTime()
         
         return(
             <div className="mainContent">
+                {this.renderRedirect()}
                 <header>
                     <h1>Time Logger</h1>
-                    <p>Hi {this.props.userEmail}</p>
+                    <Link to="/home">Log Out</Link>
+
                 </header>
                 <div className = "calendar">
-                    {this.renderRedirect()}
-                    {cellGenerator.map((cell) => {
+                    {/* {this.renderRedirect()} */}
+                    {this.state.cellGenerator.map((cell) => {
                         return cell
-                    })
-                    }
+                    })}
                 </div>
 
                 <div className="newLog">
@@ -216,17 +271,17 @@ class Main extends Component{
                         <select onChange={this.handleChange} id="day" name="day" value={this.state.day} required>
                             <option value="">A day of the week</option>
                             {
-                                formDateToApend.map((day) => {
+                                this.state.formDateToApend.map((day) => {
                                     return day
                                 })
                             }
                         </select>
 
                         <label htmlFor="statTime">Start time</label>
-                        <select onChange={this.handleChange} id="startTime" name="startTime" value={this.state.startTime} required>
+                        <select onChange={this.handleStartChange} id="startTime" name="startTime" value={this.state.startTime} required>
                             <option value="">Start time</option>
                             {
-                                startTimeToAppend.map((time) => {
+                                this.state.startTimeToAppend.map((time) => {
                                     return time
                                 })
                             }
@@ -236,7 +291,7 @@ class Main extends Component{
                         <select onChange={this.handleChange} id="endTime" name="endTime" value={this.state.endTime} required>
                             <option value="">End time</option>
                             {
-                                endTimeToAppend.map((time) => {
+                                this.state.endTimeToAppend.map((time) => {
                                     return time
                                 })
                             }
