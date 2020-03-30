@@ -32,7 +32,7 @@ class Login extends Component{
         const password = this.state.password;
         
         //check the email and the password with firebase
-        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() =>{
+        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() =>{
             auth.signInWithEmailAndPassword(email, password).then((result) => {
                 this.setState({
                     redirect: true
@@ -86,6 +86,23 @@ class Login extends Component{
             return <Redirect to='/login'></Redirect>
         }
     }
+
+    guest = () => {
+        const user = 'guest'
+        const email='guest'
+        const password = 'guest'
+        this.setState({
+            user,
+            email,
+            password
+        }, () => {
+            const {
+                getEmail
+            } = this.props;
+
+            getEmail(email, user)
+        })
+    }
     
     render(){
         return(
@@ -106,7 +123,7 @@ class Login extends Component{
     
                         <Link to="/register">Don't have an account yet? Register here!</Link>
 
-                        <Link to="/main">Or continue as a guest</Link>
+                        <Link to="/main" onClick={this.guest}>Or continue as a guest</Link>
 
                         {this.state.user ? <button onClick={this.login}>Log In</button> : <button onClick={this.logout}>Log Out</button>}
                     </form>
