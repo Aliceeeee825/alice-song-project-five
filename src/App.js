@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import {BrowserRouter as Router, Route} from 'react-router-dom'
 import { HashRouter, Route} from 'react-router-dom'
 import './index.css'
 
@@ -29,12 +28,10 @@ class App extends Component {
     return (
       <HashRouter basename="/">
         <div className="App">
-          {/* <Switch> */}
-            <Route path='/login' render={() => <Login getEmail = {this.getEmail}/> }/>
-            <Route path='/register' component={Register} />
-            <Route path='/main' render={() => <Main userEmail ={this.state.userEmail} user={this.state.user}/> }/>
-            <Route path='/' component={Home} exact/>
-          {/* </Switch> */}
+          <Route path='/login' render={() => <Login getEmail = {this.getEmail}/> }/>
+          <Route path='/register' component={Register} />
+          <Route path='/main' render={() => <Main userEmail ={this.state.userEmail} user={this.state.user}/> }/>
+          <Route path='/' component={Home} exact/>
         </div>
       </HashRouter>
     );

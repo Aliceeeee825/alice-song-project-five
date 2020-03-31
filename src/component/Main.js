@@ -24,6 +24,76 @@ class Main extends Component{
         }
     }
 
+    // the function that add cell to cellGenerator
+    appendCell = ((i, content) => {
+        let cellGenerator = this.state.cellGenerator
+        cellGenerator.push(<div className={`cellNo${i} cell`} key={i} >{content}</div>)
+        this.setState({
+            cellGenerator: cellGenerator
+        })
+    })
+
+    //give the calendar column and row names
+    generateCell = () => {
+        const weekdays = this.state.weekdays
+        let counter = 8
+        for (let i = 0; i <= 111; i++) {
+            if (1 <= i && i <= 7) {
+                // add days of week in
+                this.appendCell(i, weekdays[(i - 1)])
+            }
+            else {
+                //add time period in
+                if ((i % 8 === 0 && i > 8) || i === 8) {
+                    this.appendCell(i, `${counter}:00`)
+                    counter++
+                }
+                else {
+                    // give coordinates to each cell 
+                    let x = Math.floor(i / 8);
+                    let y = i % 8;
+                    this.appendCell(x + "-" + y, ``)
+                }
+            }
+        }
+    }
+
+    // add options for form 
+    formDate = (weekdays) => {
+        for (let i = 0; i <= 6; i++) {
+            let formDateToApend = this.state.formDateToApend
+            formDateToApend.push(<option key={`${weekdays[i]}`} value={`${i + 1}`} >{weekdays[i]}</option>)
+            this.setState({
+                formDateToApend: formDateToApend
+            })
+        }
+    }
+
+
+    formStartTime = () => {
+        for (let i = 1; i <= 13; i++) {
+            let startTimeToAppend = this.state.startTimeToAppend
+            startTimeToAppend.push(<option key={`${i + 7}`} value={`${i}`} >{i + 7}</option>)
+            this.setState({
+                startTimeToAppend: startTimeToAppend
+            })
+        }
+    }
+
+
+    formEndTime = () => {
+        for (let i = 1; i <= 13; i++) {
+            if ((i + 1) > this.state.startTime) {
+                let endTimeToAppend = this.state.endTimeToAppend
+                endTimeToAppend.push(<option key={`${i + 8}`} value={`${i + 1}`} >{i + 8}</option>)
+                this.setState({
+                    endTimeToAppend: endTimeToAppend
+                })
+            }
+        }
+    }
+
+    //retrive all the data from firebase according to the email provided in sign in
     retriveData = () =>{
         const dbRef = firebase.database().ref();
 
@@ -48,23 +118,26 @@ class Main extends Component{
     }
 
 
+    // if user logged in or continue as a guest, then print cell, form the input for the add log form.
     componentDidMount(){
         if (this.props.userEmail ){
             this.generateCell()
             this.retriveData()
             this.formDate(this.state.weekdays)
             this.formStartTime()
-            
         } else{
+            //if not logged in, redirect to login page
             this.setState({
                 redirect: true
             })
         }
     }
 
+    //when state changes, color the form according to the retrivedata result
     componentDidUpdate(){
         this.color(this.state.listOfLogs)
     }
+
     // after clicking the plus button, the log form shows up
     newEventHandler = () => {
         let logDetail = document.querySelector('.logDetail');
@@ -145,6 +218,7 @@ class Main extends Component{
         })
     }
 
+    //it is separte from other changes since the end time is depends on the start time input
     handleStartChange = (e) => {
         this.setState({
             startTime:e.target.value,
@@ -172,77 +246,8 @@ class Main extends Component{
         }
     }
 
-    appendCell = ((i, content) => {
-        let cellGenerator = this.state.cellGenerator
-        cellGenerator.push(<div className={`cellNo${i} cell`} key={i} >{content}</div>)
-        this.setState({
-            cellGenerator: cellGenerator
-        })
-    })
-
-    //give the calendar column and row names
-    generateCell = () =>{
-        const weekdays = this.state.weekdays
-        let counter = 8
-        for (let i = 0; i <= 111; i++) {
-            if (1 <= i && i <= 7) {
-                // add days of week in
-                this.appendCell(i, weekdays[(i - 1)])
-            }
-            else {
-                //add time period in
-                if ((i % 8 === 0 && i > 8) || i === 8) {
-                    this.appendCell(i, `${counter}:00`)
-                    counter ++ 
-                }
-                else {
-                    // give coordinates to each cell 
-                    let x = Math.floor(i / 8);
-                    let y = i % 8;
-                    this.appendCell(x + "-" + y, ``)
-                }
-            }
-        }
-    }
-
-    // add options for form 
-    formDate = (weekdays) => {
-        for (let i = 0; i <= 6; i++) {
-            let formDateToApend = this.state.formDateToApend
-            formDateToApend.push(<option key={`${weekdays[i]}`} value={`${i + 1}`} >{weekdays[i]}</option>)
-            this.setState({
-                formDateToApend: formDateToApend
-            })
-        }
-    }
     
-
-    formStartTime = () => {
-        for (let i = 1; i <= 13; i++) {
-            let startTimeToAppend = this.state.startTimeToAppend
-            startTimeToAppend.push(<option key={`${i + 7}`} value={`${i}`} >{i + 7}</option>)
-            this.setState({
-                startTimeToAppend: startTimeToAppend
-            })
-        }
-    }
-    
-
-    formEndTime = () => {
-        for (let i = 1; i <= 13; i++) {
-            if ((i + 1) > this.state.startTime) {
-                let endTimeToAppend = this.state.endTimeToAppend
-                endTimeToAppend.push(<option key={`${i + 8}`} value={`${i + 1}`} >{i + 8}</option>)
-                this.setState({
-                    endTimeToAppend: endTimeToAppend
-                })
-            }
-        }
-    }
-
     render(){
-        //generate cells
-        
         return(
             <div className="mainContent">
                 {this.renderRedirect()}
@@ -252,7 +257,7 @@ class Main extends Component{
 
                 </header>
                 <div className = "calendar">
-                    {/* {this.renderRedirect()} */}
+                    {/* print all the cells to the page */}
                     {this.state.cellGenerator.map((cell) => {
                         return cell
                     })}

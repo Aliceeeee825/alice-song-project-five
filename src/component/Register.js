@@ -34,7 +34,6 @@ class Register extends Component{
         const password = this.state.password;
         //verify whether the confirmed password is the same as the password
         if (this.state.password !== this.state.confirmedPassword){
-            // alert('The confirmed password does not match the password');
             Swal.fire({
                 title: 'Error!',
                 text: 'The confirmed password does not match the password',
@@ -44,13 +43,12 @@ class Register extends Component{
         }else{
             //create the email and password in the firebase and redirect to the main page
             auth.createUserWithEmailAndPassword(email, password).then((result) => {
-                // window.location.replace('/main')
+                // enable redirection to login when succesfully registered
                 this.setState({
                     redirect: true,
                 })
             }).catch((error) => {
                 //error handling
-                // alert(error.message)
                 Swal.fire({
                     title: 'Error!',
                     text: error.message,
@@ -70,7 +68,7 @@ class Register extends Component{
 
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to={`/login`}></Redirect>
+            return <Redirect to='/login'></Redirect>
         } else {
             return <Redirect to='/register'></Redirect>
         }
@@ -85,6 +83,7 @@ class Register extends Component{
                         <img src={registerLogo} alt="A calendar with a heart in the middle. Icon made by Free icons from www.freeicons.io" />
                     </div>
 
+                    {/* form starts here */}
                     <form action="GET" className="registerForm" onSubmit={this.submitRegister}>
                         <h2>Hello Friend!</h2>
                         <label htmlFor="email">Emaill address</label>

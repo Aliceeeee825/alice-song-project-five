@@ -25,7 +25,9 @@ class Login extends Component{
         })
     }
 
+    //check the email and password with firebase
     checkStatus = (email, password) => {
+        //when the user have provide email and/or password
         if(email === '' || password === ''){
             Swal.fire({
                 title: 'Error!',
@@ -35,11 +37,11 @@ class Login extends Component{
             })
         }else{
             auth.signInWithEmailAndPassword(email, password).then((result) => {
+                //if auth passed, then redirect to the main page
                 this.setState({
                     redirect: true
                 })
             }).catch((error) => {
-                // alert(error.message)
                 Swal.fire({
                     title: 'Error!',
                     text: error.message,
@@ -48,6 +50,7 @@ class Login extends Component{
                 })
             })
     
+            //set the user email and password and send them to app.js
             auth.onAuthStateChanged(user => {
                 this.setState({
                     user,
@@ -65,7 +68,7 @@ class Login extends Component{
 
     }
     
-    //when the user is not null, log in
+    //when the user is null, log in
     login = (e) => {
         e.preventDefault();
 
@@ -73,17 +76,6 @@ class Login extends Component{
         const password = this.state.password;
         
         this.checkStatus(email, password)
-    }
-
-    //when the user is not null in the state, reset it to null
-    logout = () => {
-        auth.signOut()
-            .then(() => {
-                this.setState({
-                    user: null
-                });
-                window.location.replace('/login')
-            });
     }
 
     componentDidMount() {
@@ -96,12 +88,13 @@ class Login extends Component{
 
     renderRedirect = () => {
         if (this.state.redirect){
-            return <Redirect to={`/main`}></Redirect>
+            return <Redirect to='/main'></Redirect>
         }else{
             return <Redirect to='/login'></Redirect>
         }
     }
 
+    //when the user continue as a guest
     guest = (e) => {
         e.preventDefault()
         const email = 'guest@guest.com'
@@ -129,13 +122,10 @@ class Login extends Component{
     
                         <Link to="/register">Don't have an account yet? Register here!</Link>
 
-                        {/* <Link onClick={this.guest} */}
-                        {/* // to="/main">Or continue as a guest</Link> */}
                         <button className="guest" href="" onClick={this.guest}>Or continue as a guest</button>
 
 
                         <button onClick={this.login}>Log In</button>
-                        {/* {!this.state.user ? <button onClick={this.login}>Log In</button> : <button onClick={this.logout}>Log Out</button>} */}
                     </form>
                 </div>
             </div>
