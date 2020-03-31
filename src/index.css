@@ -362,7 +362,7 @@ header a:focus{
 }
 
 .newLogPlus:active{
-  bottom: -19.5%;
+  bottom: -20.5%;
   right: 12.5%
 }
 
@@ -430,13 +430,28 @@ header a:focus{
   }
 }
 
+@media(max-width: 600px){
+  header{
+    height: 25vh;
+    align-items: flex-end;
+    margin-bottom: 15px;
+  }
+  header a{
+    right: 40%;
+  }
+}
+
 @media(max-width: 490px){
   header{
-    height: 15vh
+    height: 20vh;
+    align-items: flex-start;
   }
   header h1{
     font-size: 2.5rem;
     margin-bottom: 1%;
+  }
+  header a{
+    top: 70%
   }
 }
 
