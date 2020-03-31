@@ -74,15 +74,30 @@ class Main extends Component{
     // after clicking the clear all button
     removeAll = () => {
         const dbRef = firebase.database().ref();
-        
-        if (window.confirm("Do you really want to clear everything on your schedule?")){
-            dbRef.remove();
-            this.setState({
-                cellGenerator: []
-            },()=>{
-                this.generateCell()
-            })
-        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you really want to clear everything on your schedule?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                dbRef.remove();
+                this.setState({
+                    cellGenerator: []
+                }, () => {
+                    this.generateCell()
+                })
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
     }
 
     renderRedirect = () => {
