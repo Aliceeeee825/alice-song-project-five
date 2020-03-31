@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import firebase from '../firebase';
 import { Link, Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 class Main extends Component{
     constructor(props){
@@ -95,7 +96,13 @@ class Main extends Component{
         e.preventDefault()
 
         if (!this.state.day || !this.state.startTime || !this.state.endTime){
-            alert('You need to fill in the day, start time and the end time')
+            // alert('You need to fill in the day, start time and the end time')
+            Swal.fire({
+                title: 'Error!',
+                text: 'You need to fill in the day, start time and the end time',
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            })
         }
         else{
             let log = {

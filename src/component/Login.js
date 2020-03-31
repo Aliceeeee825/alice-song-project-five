@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from '../firebase';
 import { Link, Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 import calendarLogo from '../assets/calendarLogo.svg'
 
@@ -25,27 +26,43 @@ class Login extends Component{
     }
 
     checkStatus = (email, password) => {
-        auth.signInWithEmailAndPassword(email, password).then((result) => {
-            this.setState({
-                redirect: true
+        if(email === '' || password === ''){
+            Swal.fire({
+                title: 'Error!',
+                text: 'Please put your email and password here',
+                icon: 'error',
+                confirmButtonText: 'Cool'
             })
-        }).catch((error) => {
-            alert(error.message)
-        })
-
-        auth.onAuthStateChanged(user => {
-            this.setState({
-                user,
-                email,
-                password
-            }, () => {
-                const {
-                    getEmail
-                } = this.props;
-
-                getEmail(email, user)
+        }else{
+            auth.signInWithEmailAndPassword(email, password).then((result) => {
+                this.setState({
+                    redirect: true
+                })
+            }).catch((error) => {
+                // alert(error.message)
+                Swal.fire({
+                    title: 'Error!',
+                    text: error.message,
+                    icon: 'error',
+                    confirmButtonText: 'Cool'
+                })
             })
-        })
+    
+            auth.onAuthStateChanged(user => {
+                this.setState({
+                    user,
+                    email,
+                    password
+                }, () => {
+                    const {
+                        getEmail
+                    } = this.props;
+    
+                    getEmail(email, user)
+                })
+            })
+        }
+
     }
     
     //when the user is not null, log in
@@ -104,10 +121,10 @@ class Login extends Component{
                     <form action="GET" className="loginForm" onSubmit={this.checkStatus}>
                         <h2>Welcome Back!</h2>
                         <label htmlFor="email">Emaill address</label>
-                        <input type="email" id="email" name="email" onChange={this.handleChange} placeholder="sample@alice.com"></input>
+                        <input type="email" id="email" name="email" onChange={this.handleChange} placeholder="sample@alice.com" required></input>
     
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" name="password" onChange={this.handleChange} placeholder="abc123"></input>
+                        <input type="password" id="password" name="password" onChange={this.handleChange} placeholder="abc123" required></input>
     
                         <Link to="/register">Don't have an account yet? Register here!</Link>
 
