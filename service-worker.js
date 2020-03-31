@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/alice-song-project-five/precache-manifest.edf356a19b1ac297d0eb83ef3d4eb4b0.js"
+  "/alice-song-project-five/precache-manifest.0901f26a3131d4ec0706efdf1c67ec92.js"
 );
 
 self.addEventListener('message', (event) => {
