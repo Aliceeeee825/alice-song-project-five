@@ -367,7 +367,7 @@ header a:focus{
 }
 
 .clear:active{
-  bottom: -19.5%;
+  bottom: -20.5%;
   right: 4.5%;
 }
 
@@ -414,11 +414,11 @@ header a:focus{
 
 @media(max-width: 800px){
   .newLogPlus{
-    bottom: 15%;
+    bottom: -10%;
   }
 
   .newLogPlus:active{
-    bottom: 14.5%
+    bottom: -10.5%
   }
 
   .clear{

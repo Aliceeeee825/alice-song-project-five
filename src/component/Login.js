@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from '../firebase';
 import { Link, Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 import calendarLogo from '../assets/calendarLogo.svg'
 
@@ -23,6 +24,46 @@ class Login extends Component{
             [e.target.name] : e.target.value
         })
     }
+
+    checkStatus = (email, password) => {
+        if(email === '' || password === ''){
+            Swal.fire({
+                title: 'Error!',
+                text: 'Please put your email and password here',
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            })
+        }else{
+            auth.signInWithEmailAndPassword(email, password).then((result) => {
+                this.setState({
+                    redirect: true
+                })
+            }).catch((error) => {
+                // alert(error.message)
+                Swal.fire({
+                    title: 'Error!',
+                    text: error.message,
+                    icon: 'error',
+                    confirmButtonText: 'Cool'
+                })
+            })
+    
+            auth.onAuthStateChanged(user => {
+                this.setState({
+                    user,
+                    email,
+                    password
+                }, () => {
+                    const {
+                        getEmail
+                    } = this.props;
+    
+                    getEmail(email, user)
+                })
+            })
+        }
+
+    }
     
     //when the user is not null, log in
     login = (e) => {
@@ -31,33 +72,7 @@ class Login extends Component{
         const email = this.state.email;
         const password = this.state.password;
         
-        //check the email and the password with firebase
-        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() =>{
-            auth.signInWithEmailAndPassword(email, password).then((result) => {
-                this.setState({
-                    redirect: true
-                })
-            }).catch((error) => {
-                alert(error.message)
-            })
-        }).catch(function(error){
-            alert(error.message)
-        })
-        
-        //when the authorization changes, reset the state
-        auth.onAuthStateChanged(user => {
-            this.setState({
-                user,
-                email,
-                password
-            }, () => {
-                const {
-                    getEmail
-                } = this.props;
-
-                getEmail(email, user)
-            })
-        })
+        this.checkStatus(email, password)
     }
 
     //when the user is not null in the state, reset it to null
@@ -88,20 +103,10 @@ class Login extends Component{
     }
 
     guest = () => {
-        const user = 'guest'
-        const email='guest'
-        const password = 'guest'
-        this.setState({
-            user,
-            email,
-            password
-        }, () => {
-            const {
-                getEmail
-            } = this.props;
+        const email = 'guest@guest.com'
+        const password = 'guests'
 
-            getEmail(email, user)
-        })
+        this.checkStatus(email,password)
     }
     
     render(){
@@ -116,16 +121,19 @@ class Login extends Component{
                     <form action="GET" className="loginForm" onSubmit={this.checkStatus}>
                         <h2>Welcome Back!</h2>
                         <label htmlFor="email">Emaill address</label>
-                        <input type="email" id="email" name="email" onChange={this.handleChange} placeholder="sample@alice.com"></input>
+                        <input type="email" id="email" name="email" onChange={this.handleChange} placeholder="sample@alice.com" required></input>
     
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" name="password" onChange={this.handleChange} placeholder="abc123"></input>
+                        <input type="password" id="password" name="password" onChange={this.handleChange} placeholder="abc123" required></input>
     
                         <Link to="/register">Don't have an account yet? Register here!</Link>
 
-                        <Link to="/main" onClick={this.guest}>Or continue as a guest</Link>
+                        {/* <Link onClick={this.guest}
+                        to="/main">Or continue as a guest</Link> */}
+                        <a href="#" onClick={this.guest}>Or continue as a guest</a>
 
-                        {this.state.user ? <button onClick={this.login}>Log In</button> : <button onClick={this.logout}>Log Out</button>}
+                        <button onClick={this.login}>Log In</button>
+                        {/* {!this.state.user ? <button onClick={this.login}>Log In</button> : <button onClick={this.logout}>Log Out</button>} */}
                     </form>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import firebase from '../firebase';
 import { Link, Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 class Main extends Component{
     constructor(props){
@@ -46,34 +47,23 @@ class Main extends Component{
         })
     }
 
-    getEmail = () => {
-        const localEmail = localStorage.getItem('localEmail')
-        console.log(localEmail)
-        this.setState({
-            email: localEmail
-        })
-    }
-
-    setEmailFromLocal = (userEmail) =>{
-        localStorage.setItem('localEmail', userEmail)
-        console.log(userEmail)
-        this.setState({
-            email: userEmail
-        })
-    }
 
     componentDidMount(){
-        console.log(this.props.userEmail)
-        if (this.props.userEmail){
+        if (this.props.userEmail ){
             this.generateCell()
             this.retriveData()
             this.formDate(this.state.weekdays)
             this.formStartTime()
+            
         } else{
             this.setState({
-                // redirect: true
+                redirect: true
             })
         }
+    }
+
+    componentDidUpdate(){
+        this.color(this.state.listOfLogs)
     }
     // after clicking the plus button, the log form shows up
     newEventHandler = () => {
@@ -84,19 +74,33 @@ class Main extends Component{
     // after clicking the clear all button
     removeAll = () => {
         const dbRef = firebase.database().ref();
-        
-        if (window.confirm("Do you really want to clear everything on your schedule?")){
-            dbRef.remove();
-            this.setState({
-                cellGenerator: []
-            },()=>{
-                this.generateCell()
-            })
-        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you really want to clear everything on your schedule?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                dbRef.remove();
+                this.setState({
+                    cellGenerator: []
+                }, () => {
+                    this.generateCell()
+                })
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
     }
 
     renderRedirect = () => {
-        console.log(this.state.redirect)
         if (this.state.redirect) {
             return <Redirect to='/login'></Redirect>
         }
@@ -107,11 +111,14 @@ class Main extends Component{
         e.preventDefault()
 
         if (!this.state.day || !this.state.startTime || !this.state.endTime){
-            alert('You need to fill in the day, start time and the end time')
+            // alert('You need to fill in the day, start time and the end time')
+            Swal.fire({
+                title: 'Error!',
+                text: 'You need to fill in the day, start time and the end time',
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            })
         }
-        // else if(this.state.endTime <= this.state.startTime) {
-        //     alert('Please choose an end time that is later than the start time')
-        // }
         else{
             let log = {
                 "email": this.props.userEmail,
@@ -120,7 +127,6 @@ class Main extends Component{
                 "endTime": this.state.endTime,
                 "note": this.state.note,
             }
-            console.log(log)
             
             //push the data to the firebase
             const dbRef = firebase.database().ref();
@@ -128,7 +134,6 @@ class Main extends Component{
             
             //clear the note text input field
             document.querySelector('.note').value = '';
-            this.color(this.state.listOfLogs)
         }
     }
 
@@ -155,7 +160,7 @@ class Main extends Component{
             listOfItem.forEach((item) => {
                 const startTime = item.log.startTime;
                 const endTime = item.log.endTime;
-                const day = item.log.day
+                const day = Number(item.log.day)
                 for (let duration = endTime - startTime - 1; duration >= 0; duration--) {
                     let hour = Number(startTime) + duration
                     document.querySelector('.cellNo' + hour + '-' + day).style.backgroundColor = "#c5c1c0";
@@ -236,8 +241,6 @@ class Main extends Component{
     }
 
     render(){
-        
-        this.color(this.state.listOfLogs)
         //generate cells
         
         return(
@@ -245,7 +248,7 @@ class Main extends Component{
                 {this.renderRedirect()}
                 <header>
                     <h1>Time Logger</h1>
-                    <Link to="/home">Log Out</Link>
+                    <Link to="/">Log Out</Link>
 
                 </header>
                 <div className = "calendar">
