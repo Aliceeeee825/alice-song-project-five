@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/alice-song-project-five/static/css/main.136f3a8a.chunk.css",
-    "main.js": "/alice-song-project-five/static/js/main.c17ca2c8.chunk.js",
-    "main.js.map": "/alice-song-project-five/static/js/main.c17ca2c8.chunk.js.map",
+    "main.css": "/alice-song-project-five/static/css/main.7191da8c.chunk.css",
+    "main.js": "/alice-song-project-five/static/js/main.420808f3.chunk.js",
+    "main.js.map": "/alice-song-project-five/static/js/main.420808f3.chunk.js.map",
     "runtime-main.js": "/alice-song-project-five/static/js/runtime-main.f6fd186f.js",
     "runtime-main.js.map": "/alice-song-project-five/static/js/runtime-main.f6fd186f.js.map",
-    "static/js/2.038b309f.chunk.js": "/alice-song-project-five/static/js/2.038b309f.chunk.js",
-    "static/js/2.038b309f.chunk.js.map": "/alice-song-project-five/static/js/2.038b309f.chunk.js.map",
+    "static/js/2.ed795b15.chunk.js": "/alice-song-project-five/static/js/2.ed795b15.chunk.js",
+    "static/js/2.ed795b15.chunk.js.map": "/alice-song-project-five/static/js/2.ed795b15.chunk.js.map",
     "index.html": "/alice-song-project-five/index.html",
-    "precache-manifest.de7a9d29a36ca532fad53b16ad768a05.js": "/alice-song-project-five/precache-manifest.de7a9d29a36ca532fad53b16ad768a05.js",
+    "precache-manifest.11b61a352e7945711760712521e91967.js": "/alice-song-project-five/precache-manifest.11b61a352e7945711760712521e91967.js",
     "service-worker.js": "/alice-song-project-five/service-worker.js",
-    "static/css/main.136f3a8a.chunk.css.map": "/alice-song-project-five/static/css/main.136f3a8a.chunk.css.map",
-    "static/js/2.038b309f.chunk.js.LICENSE.txt": "/alice-song-project-five/static/js/2.038b309f.chunk.js.LICENSE.txt",
-    "static/media/calendarLogo.svg": "/alice-song-project-five/static/media/calendarLogo.4db167f8.svg",
-    "static/media/homeLogo.svg": "/alice-song-project-five/static/media/homeLogo.d1720d81.svg",
-    "static/media/registerLogo.svg": "/alice-song-project-five/static/media/registerLogo.e013f98b.svg"
+    "static/css/main.7191da8c.chunk.css.map": "/alice-song-project-five/static/css/main.7191da8c.chunk.css.map",
+    "static/js/2.ed795b15.chunk.js.LICENSE.txt": "/alice-song-project-five/static/js/2.ed795b15.chunk.js.LICENSE.txt",
+    "static/media/calendarLogo.svg": "/alice-song-project-five/static/media/calendarLogo.3aa471d5.svg",
+    "static/media/homeLogo.svg": "/alice-song-project-five/static/media/homeLogo.f09b46dd.svg",
+    "static/media/registerLogo.svg": "/alice-song-project-five/static/media/registerLogo.1a5af44a.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.f6fd186f.js",
-    "static/js/2.038b309f.chunk.js",
-    "static/css/main.136f3a8a.chunk.css",
-    "static/js/main.c17ca2c8.chunk.js"
+    "static/js/2.ed795b15.chunk.js",
+    "static/css/main.7191da8c.chunk.css",
+    "static/js/main.420808f3.chunk.js"
   ]
 }
