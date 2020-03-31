@@ -23,28 +23,16 @@ class Login extends Component{
             [e.target.name] : e.target.value
         })
     }
-    
-    //when the user is not null, log in
-    login = (e) => {
-        e.preventDefault();
 
-        const email = this.state.email;
-        const password = this.state.password;
-        
-        //check the email and the password with firebase
-        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() =>{
-            auth.signInWithEmailAndPassword(email, password).then((result) => {
-                this.setState({
-                    redirect: true
-                })
-            }).catch((error) => {
-                alert(error.message)
+    checkStatus = (email, password) => {
+        auth.signInWithEmailAndPassword(email, password).then((result) => {
+            this.setState({
+                redirect: true
             })
-        }).catch(function(error){
+        }).catch((error) => {
             alert(error.message)
         })
-        
-        //when the authorization changes, reset the state
+
         auth.onAuthStateChanged(user => {
             this.setState({
                 user,
@@ -58,6 +46,16 @@ class Login extends Component{
                 getEmail(email, user)
             })
         })
+    }
+    
+    //when the user is not null, log in
+    login = (e) => {
+        e.preventDefault();
+
+        const email = this.state.email;
+        const password = this.state.password;
+        
+        this.checkStatus(email, password)
     }
 
     //when the user is not null in the state, reset it to null
@@ -87,22 +85,12 @@ class Login extends Component{
         }
     }
 
-    // guest = () => {
-    //     const user = 'guest'
-    //     const email='guest'
-    //     const password = 'guest'
-    //     this.setState({
-    //         user,
-    //         email,
-    //         password
-    //     }, () => {
-    //         const {
-    //             getEmail
-    //         } = this.props;
+    guest = () => {
+        const email = 'guest@guest.com'
+        const password = 'guests'
 
-    //         getEmail(email, user)
-    //     })
-    // }
+        this.checkStatus(email,password)
+    }
     
     render(){
         return(
@@ -123,16 +111,12 @@ class Login extends Component{
     
                         <Link to="/register">Don't have an account yet? Register here!</Link>
 
-                        <Link to={{
-                            pathname:"/main", 
-                            state:{
-                                guest: true
-                            }
-                        }} 
-                        // onClick={this.guest}
-                        >Or continue as a guest</Link>
+                        {/* <Link onClick={this.guest}
+                        to="/main">Or continue as a guest</Link> */}
+                        <a href="#" onClick={this.guest}>Or continue as a guest</a>
 
-                        {this.state.user ? <button onClick={this.login}>Log In</button> : <button onClick={this.logout}>Log Out</button>}
+                        <button onClick={this.login}>Log In</button>
+                        {/* {!this.state.user ? <button onClick={this.login}>Log In</button> : <button onClick={this.logout}>Log Out</button>} */}
                     </form>
                 </div>
             </div>

@@ -46,34 +46,23 @@ class Main extends Component{
         })
     }
 
-    getEmail = () => {
-        const localEmail = localStorage.getItem('localEmail')
-        console.log(localEmail)
-        this.setState({
-            email: localEmail
-        })
-    }
-
-    setEmailFromLocal = (userEmail) =>{
-        localStorage.setItem('localEmail', userEmail)
-        console.log(userEmail)
-        this.setState({
-            email: userEmail
-        })
-    }
 
     componentDidMount(){
-        console.log(this.props.location.state)
-        if (this.props.userEmail){
+        if (this.props.userEmail ){
             this.generateCell()
             this.retriveData()
             this.formDate(this.state.weekdays)
             this.formStartTime()
+            
         } else{
             this.setState({
-                // redirect: true
+                redirect: true
             })
         }
+    }
+
+    componentDidUpdate(){
+        this.color(this.state.listOfLogs)
     }
     // after clicking the plus button, the log form shows up
     newEventHandler = () => {
@@ -96,7 +85,6 @@ class Main extends Component{
     }
 
     renderRedirect = () => {
-        console.log(this.state.redirect)
         if (this.state.redirect) {
             return <Redirect to='/login'></Redirect>
         }
@@ -109,9 +97,6 @@ class Main extends Component{
         if (!this.state.day || !this.state.startTime || !this.state.endTime){
             alert('You need to fill in the day, start time and the end time')
         }
-        // else if(this.state.endTime <= this.state.startTime) {
-        //     alert('Please choose an end time that is later than the start time')
-        // }
         else{
             let log = {
                 "email": this.props.userEmail,
@@ -120,7 +105,6 @@ class Main extends Component{
                 "endTime": this.state.endTime,
                 "note": this.state.note,
             }
-            console.log(log)
             
             //push the data to the firebase
             const dbRef = firebase.database().ref();
@@ -128,7 +112,6 @@ class Main extends Component{
             
             //clear the note text input field
             document.querySelector('.note').value = '';
-            this.color(this.state.listOfLogs)
         }
     }
 
@@ -155,7 +138,7 @@ class Main extends Component{
             listOfItem.forEach((item) => {
                 const startTime = item.log.startTime;
                 const endTime = item.log.endTime;
-                const day = item.log.day
+                const day = Number(item.log.day)
                 for (let duration = endTime - startTime - 1; duration >= 0; duration--) {
                     let hour = Number(startTime) + duration
                     document.querySelector('.cellNo' + hour + '-' + day).style.backgroundColor = "#c5c1c0";
@@ -236,8 +219,6 @@ class Main extends Component{
     }
 
     render(){
-        
-        this.color(this.state.listOfLogs)
         //generate cells
         
         return(
