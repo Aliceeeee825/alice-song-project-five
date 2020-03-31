@@ -102,7 +102,8 @@ class Login extends Component{
         }
     }
 
-    guest = () => {
+    guest = (e) => {
+        e.preventDefault()
         const email = 'guest@guest.com'
         const password = 'guests'
 
@@ -128,9 +129,10 @@ class Login extends Component{
     
                         <Link to="/register">Don't have an account yet? Register here!</Link>
 
-                        {/* <Link onClick={this.guest}
-                        to="/main">Or continue as a guest</Link> */}
-                        <a href="#" onClick={this.guest}>Or continue as a guest</a>
+                        {/* <Link onClick={this.guest} */}
+                        {/* // to="/main">Or continue as a guest</Link> */}
+                        <button className="guest" href="" onClick={this.guest}>Or continue as a guest</button>
+
 
                         <button onClick={this.login}>Log In</button>
                         {/* {!this.state.user ? <button onClick={this.login}>Log In</button> : <button onClick={this.logout}>Log Out</button>} */}

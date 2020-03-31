@@ -182,19 +182,33 @@ justify-content: center;
 }
 
 .loginForm a,
-.registerForm a{
+.registerForm a,
+.loginForm .guest{
   color: white;
   text-decoration: none;
   padding: 2% 0;
   transition: all 0.5s;
 }
 
+.loginForm .guest{
+  border: none;
+  background: transparent;
+  text-align: left;
+}
+
 .loginForm a:hover,
 .loginForm a:focus,
+.loginForm .guest:hover,
+.loginForm .guest:focus,
 .registerForm a:hover,
 .registerForm a:focus{
   color: #f7ce3e;
   text-decoration: underline;
+}
+
+.loginForm .guest:hover,
+.loginForm .guest:focus{
+  background: transparent;
 }
 
 .loginForm button,
@@ -218,7 +232,6 @@ justify-content: center;
 .registerForm button:focus{
   background-color: #f7ce3e;
   color: white;
-  transition: top 0.5s, left 0.5s;
 }
 
 .loginForm button:active,

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+// import {BrowserRouter as Router, Route} from 'react-router-dom'
+import { HashRouter, Route} from 'react-router-dom'
 import './index.css'
 
 import Home from './component/Home';
@@ -26,7 +27,7 @@ class App extends Component {
 
   render(){
     return (
-      <Router basename="/">
+      <HashRouter basename="/">
         <div className="App">
           {/* <Switch> */}
             <Route path='/login' render={() => <Login getEmail = {this.getEmail}/> }/>
@@ -35,7 +36,7 @@ class App extends Component {
             <Route path='/' component={Home} exact/>
           {/* </Switch> */}
         </div>
-      </Router>
+      </HashRouter>
     );
   }
 }
