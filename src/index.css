@@ -454,6 +454,18 @@ header a:focus{
   }
 }
 
+@media(max-width: 510px){
+  .addLogForm{
+    flex-direction: column;
+  }
+  .addLogForm input[type='text']{
+    width: 100%;
+  }
+  .addLog{
+    margin: 20px 0;
+  }
+}
+
 @media(max-width: 490px){
   header{
     height: 20vh;
@@ -466,9 +478,6 @@ header a:focus{
   header a{
     top: 70%
   }
-}
-
-@media(max-width: 390px){
   .logDetail{
     width: 70%
   }
