@@ -1,5 +1,3 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 # Time Logger
 
 A react project used **firebase** and **react routing**
@@ -19,3 +17,9 @@ Have a hard time tracking what you did by the end of everyweek? Try time logger!
 ### Want to see this page **live**?
 * Go to [Time logger](https://aliceeeee825.github.io/alice-song-project-five/)
 * You can always preview how it looks like using `continue as a guest` without register! 
+
+## Built with
+React, react routing and firebase
+
+## Author
+[Alice Song](alicesong.site)
