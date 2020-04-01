@@ -454,7 +454,7 @@ header a:focus{
   }
 }
 
-@media(max-width: 510px){
+@media(max-width: 550px){
   .addLogForm{
     flex-direction: column;
   }
